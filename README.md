@@ -26,5 +26,7 @@ $ yarn electron:start
 Building an electron release 
 
 ```
-yarn electron:release
+$ yarn electron:release
 ```
+
+Realease are stores in `releases/`

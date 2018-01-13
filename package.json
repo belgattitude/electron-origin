@@ -5,7 +5,10 @@
   "scripts": {
     "build": "cross-env NODE_ENV=production webpack --config webpack.config.js",
     "start": "webpack-dev-server --hot",
-    "clean": "rimraf build",
+    "clean:all": "run-p clean:build clean:dist clean:release",
+    "clean:build": "rimraf build",
+    "clean:dist": "rimraf dist",
+    "clean:releases": "rimraf dist",
     "electron:start": "concurrently \"BROWSER=none yarn start\" \"wait-on http://localhost:3000 && electron -r babel-register ./src/electron/electron-main.js\"",
     "electron:build": "concurrently \"yarn run electron:build-main\" \"yarn run electron:build-renderer\"",
     "electron:build-main": "cross-env NODE_ENV=production node --trace-warnings -r babel-register ./node_modules/webpack/bin/webpack --config webpack.config.main.prod.js --colors",
