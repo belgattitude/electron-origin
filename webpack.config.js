@@ -11,10 +11,9 @@ module.exports = {
     "app" : './src/js/index.js'
   },
   resolve: {
-    extensions: ['.js', '.jsx', '.json'],
+    extensions: ['.js', '.jsx', '.json', '.ts', '.tsx'],
     modules: [
       path.join(__dirname, 'src'),
-      path.join(__dirname, 'public'),
       'node_modules',
     ],
   },
@@ -26,14 +25,26 @@ module.exports = {
   module: {
     rules: [
       {
+        test: /\.ts(x?)$/,
+        exclude: /node_modules/,
+        use: [
+          {
+            loader: 'babel-loader',
+            //options: babelOptions
+          },
+          {
+            loader: 'ts-loader'
+          }
+        ]
+      },{
         test: /\.jsx?$/,
+        exclude: /node_modules/,
         use: {
           loader: 'babel-loader',
           options: {
             cacheDirectory: true
           }
         },
-        exclude: /node_modules/,
       },
       {
         test: /\.css$/,
@@ -42,7 +53,6 @@ module.exports = {
     ]
   },
   plugins: [
-
     new HtmlWebpackPlugin({
       alwaysWriteToDisk: true,
       hash: true,

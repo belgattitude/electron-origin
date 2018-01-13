@@ -1,5 +1,6 @@
 # electron-origin
 
+WIP
 
 ## Install
 
@@ -29,4 +30,4 @@ Building an electron release
 $ yarn electron:release
 ```
 
-Realease are stores in `releases/`
+Release are stored in `releases/`
