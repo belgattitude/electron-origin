@@ -38,10 +38,7 @@ module.exports = {
             //options: babelOptions
           },
           {
-            loader: 'ts-loader',
-            options: {
-              cacheDirectory: true
-            }
+            loader: 'ts-loader'
           }
         ]
       },
