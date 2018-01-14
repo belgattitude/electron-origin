@@ -1,14 +1,19 @@
 const path = require('path');
-var webpack = require('webpack');
+const webpack = require('webpack');
 
 //const AddModuleExportsPlugin = require('add-module-exports-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const HtmlWebpackHarddiskPlugin = require('html-webpack-harddisk-plugin');
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
+
+const extractSass = new ExtractTextPlugin({
+  filename: "styles.css",
+});
 
 module.exports = {
   devtool: 'eval',
   entry: {
-    "app" : './src/js/index.js'
+    "app" : './src/js/index.tsx'
   },
   resolve: {
     extensions: ['.js', '.jsx', '.json', '.ts', '.tsx'],
@@ -33,10 +38,14 @@ module.exports = {
             //options: babelOptions
           },
           {
-            loader: 'ts-loader'
+            loader: 'ts-loader',
+            options: {
+              cacheDirectory: true
+            }
           }
         ]
-      },{
+      },
+      {
         test: /\.jsx?$/,
         exclude: /node_modules/,
         use: {
@@ -47,9 +56,37 @@ module.exports = {
         },
       },
       {
+        test: /\.(scss)$/,
+        use: extractSass.extract({
+          fallback: 'style-loader',
+          //resolve-url-loader may be chained before sass-loader if necessary
+          use: [{
+            loader: "css-loader" // translates CSS into CommonJS
+          }, {
+            loader: "sass-loader" // compiles Sass to CSS
+          }]
+        })
+      },
+      {
         test: /\.css$/,
         use: ['style-loader', 'css-loader']
+      },
+      {
+        test: /\.woff2?(\?v=[0-9]\.[0-9]\.[0-9])?$/,
+        use: 'url-loader?limit=10000',
+      },
+      {
+        test: /\.(ttf|eot|svg)(\?[\s\S]+)?$/,
+        use: 'file-loader',
+      },
+      {
+        test: /\.(jpe?g|png|gif|svg)$/i,
+        use: [
+          'file-loader?name=images/[name].[ext]',
+          'image-webpack-loader?bypassOnDebug'
+        ]
       }
+
     ]
   },
   plugins: [
@@ -61,7 +98,13 @@ module.exports = {
       template: './public/index.html',
     }),
     new HtmlWebpackHarddiskPlugin(),
-    new webpack.NamedModulesPlugin()
+    new webpack.NamedModulesPlugin(),
+    new webpack.ProvidePlugin({
+      $: "jquery", // Used for Bootstrap JavaScript components
+      jQuery: "jquery", // Used for Bootstrap JavaScript components
+      Popper: ['popper.js', 'default'] // Used for Bootstrap dropdown, popup and tooltip JavaScript components
+    }),
+    extractSass
   ],
   devServer: {
     contentBase: path.resolve(__dirname, "build"),

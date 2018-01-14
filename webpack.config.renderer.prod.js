@@ -12,10 +12,6 @@ import baseConfig from './webpack.config.base';
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const HtmlWebpackHarddiskPlugin = require('html-webpack-harddisk-plugin');
 
-
-
-
-
 export default merge.smart(baseConfig, {
   devtool: 'source-map',
 
@@ -31,38 +27,36 @@ export default merge.smart(baseConfig, {
 
   module: {
     rules: [
-      // Pipe other styles through css modules and append to style.css
       {
-        test: /^((?!\.global).)*\.css$/,
+        test: /\.(css)$/,
         use: ExtractTextPlugin.extract({
+          publicPath: './',
           use: {
             loader: 'css-loader',
             options: {
-              modules: true,
               minimize: true,
-              importLoaders: 1,
-              localIdentName: '[name]__[local]__[hash:base64:5]',
             }
-          }
-        }),
+          },
+          fallback: 'style-loader',
+        })
       },
       // Add SASS support
       {
-        test: /^((?!\.global).)*\.scss$/,
+        test: /\.(scss)$/,
         use: ExtractTextPlugin.extract({
-          use: [{
-            loader: 'css-loader',
-            options: {
-              modules: true,
-              minimize: true,
-              importLoaders: 1,
-              localIdentName: '[name]__[local]__[hash:base64:5]',
+          use: [
+            {
+              loader: 'css-loader',
+              options: {
+                minimize: true,
+              }
+            },
+            {
+              loader: 'sass-loader'
             }
-          },
-          {
-            loader: 'sass-loader'
-          }]
-        }),
+          ],
+          fallback: 'style-loader',
+        })
       },
       // WOFF Font
       {
@@ -150,7 +144,7 @@ export default merge.smart(baseConfig, {
 
     new HtmlWebpackHarddiskPlugin(),
 
-    new ExtractTextPlugin('./electron-app.css'),
+    new ExtractTextPlugin('electron-app.css'),
 
     new BundleAnalyzerPlugin({
       analyzerMode: process.env.OPEN_ANALYZER === 'true' ? 'server' : 'disabled',

@@ -4,7 +4,7 @@ import List from '../components/List';
 import Form from '../components/Form';
 import DropZone from '../components/DropZone';
 import { hot } from 'react-hot-loader'
-//import FfmpegCommand from 'fluent-ffmpeg';
+//const FfmpegCommand = require('fluent-ffmpeg');
 
 class App extends React.Component {
   constructor(props) {
@@ -16,7 +16,7 @@ class App extends React.Component {
     this.setState({name: e.target.value});
   }
   render() {
-//    const ffmpeg_path = require('electron').remote.getGlobal('ffmpegpath');
+    //const ffmpeg_path = require('electron').remote.getGlobal('ffmpegpath');
 //    FfmpegCommand.setFfmpegPath(ffmpeg_path);
     return (
       <div style={{textAlign: 'center'}}>
