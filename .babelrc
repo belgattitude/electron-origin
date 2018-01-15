@@ -8,11 +8,28 @@
         "useBuiltIns": true
       }
     ],
-    "react"
+    "react",
+    "stage-3"
   ],
   "plugins": [
+    "react-hot-loader/babel",
     "transform-object-rest-spread",
-    "transform-es2015-spread",
-    "react-hot-loader/babel"
-  ]
+    "transform-es2015-spread"
+
+  ],
+  "env": {
+    "production": {
+      "presets": [
+
+      ],
+      "plugins": [
+
+      ]
+    },
+    "development": {
+      "plugins": [
+        "react-hot-loader/babel"
+      ]
+    }
+  }
 }

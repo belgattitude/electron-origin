@@ -1,18 +1,40 @@
 'use strict'
 
-import { app, BrowserWindow } from 'electron'
+import { app, BrowserWindow } from 'electron';
 
-const isDevelopment = process.env.NODE_ENV !== 'production'
-const windowStateKeeper = require('electron-window-state')
+const isDevelopment = process.env.NODE_ENV !== 'production';
+const windowStateKeeper = require('electron-window-state');
+import installExtension, { REACT_DEVELOPER_TOOLS, REDUX_DEVTOOLS } from 'electron-devtools-installer';
 
 global.ffmpegpath = require('ffmpeg-static').path.replace('app.asar', 'app.asar.unpacked');
+
+
+if (process.env.NODE_ENV === 'production') {
+  const sourceMapSupport = require('source-map-support');
+  sourceMapSupport.install();
+}
+
+if (process.env.NODE_ENV === 'development' || process.env.DEBUG_PROD === 'true') {
+  require('electron-debug')();
+  const path = require('path');
+  const p = path.join(__dirname, '..', 'app', 'node_modules');
+  require('module').globalPaths.push(p);
+}
 
 // Global reference to mainWindow
 // Necessary to prevent win from being garbage collected
 let mainWindow;
 
 function createMainWindow() {
-  // Construct new BrowserWindow
+
+  if (process.env.NODE_ENV === 'development' || process.env.DEBUG_PROD === 'true') {
+    installExtension(REACT_DEVELOPER_TOOLS)
+      .then((name) => console.log(`Added Extension:  ${name}`))
+      .catch((err) => console.log('An error occurred: ', err));
+    installExtension(REDUX_DEVTOOLS)
+      .then((name) => console.log(`Added Extension:  ${name}`))
+      .catch((err) => console.log('An error occurred: ', err));
+  }
 
   // Load the previous state with fallback to defaults
   let mainWindowState = windowStateKeeper({

@@ -11,7 +11,8 @@ const extractSass = new ExtractTextPlugin({
 });
 
 module.exports = {
-  devtool: 'eval',
+  devtool: 'cheap-module-source-map',
+  //devtool: 'eval',
   entry: {
     "app" : './src/js/index.tsx'
   },
@@ -38,7 +39,7 @@ module.exports = {
             //options: babelOptions
           },
           {
-            loader: 'ts-loader'
+            loader: 'awesome-typescript-loader'
           }
         ]
       },
