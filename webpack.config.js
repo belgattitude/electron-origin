@@ -13,9 +13,10 @@ const extractSass = new ExtractTextPlugin({
 module.exports = {
   devtool: 'cheap-module-source-map',
   //devtool: 'eval',
-  entry: {
-    "app" : './src/js/index.tsx'
-  },
+  entry: [
+    'babel-polyfill',
+    './src/js/index.tsx'
+  ],
   resolve: {
     extensions: ['.js', '.jsx', '.json', '.ts', '.tsx'],
     modules: [

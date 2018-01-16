@@ -17,7 +17,10 @@ export default merge.smart(baseConfig, {
 
   target: 'electron-renderer',
 
-  entry: './src/electron/electron-renderer.js',
+  entry: [
+    'babel-polyfill',
+    './src/electron/electron-renderer.js',
+  ],
 
   output: {
     path: path.resolve(__dirname, 'dist/electron'),
@@ -133,7 +136,6 @@ export default merge.smart(baseConfig, {
       parallel: true,
       sourceMap: true
     }),
-
     new HtmlWebpackPlugin({
       alwaysWriteToDisk: true,
       hash: true,

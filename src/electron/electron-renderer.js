@@ -6,8 +6,8 @@ import App from "../js/containers/App";
 import 'bootstrap/dist/css/bootstrap.min.css';
 //import 'bootstrap-material-design/dist/css/bootstrap-material-design.css'
 
-//require('electron').remote.getGlobal('ffmpegpath');
-
+let binariesPath = require('electron').remote.getGlobal('binariesPath');
+console.log('SSSSSSSSSSSSSSSSS', binariesPath);
 render(
   <ReduxProvider store={store}>
     <App />

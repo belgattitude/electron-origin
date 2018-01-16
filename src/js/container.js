@@ -1,8 +1,19 @@
+import Bottle from "bottlejs";
+
 const bottle = new Bottle();
 
 bottle.service('FFmpegService', function() {
 
+  //const ffmpegPath = require('electron').remote.getGlobal('ffmpegpath');
+  //return new Ffmpeg(ffmpegPath);
+  //return ffmpegPath;
+
+
 });
+
+//let container = bottle;
+//export default container;
+/*
 bottle.service('Hops', Hops);
 bottle.service('Water', Water);
 bottle.factory('Beer', function(container) {
@@ -15,3 +26,4 @@ bottle.factory('Beer', function(container) {
   water.spring();
   return new Beer(barley, hops, water);
 });
+*/

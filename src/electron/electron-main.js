@@ -1,13 +1,16 @@
 'use strict'
 
 import { app, BrowserWindow } from 'electron';
+import path from 'path';
+import os from 'os';
+import ElectronMainConfig from './electron-main-config';
 
 const isDevelopment = process.env.NODE_ENV !== 'production';
 const windowStateKeeper = require('electron-window-state');
 import installExtension, { REACT_DEVELOPER_TOOLS, REDUX_DEVTOOLS } from 'electron-devtools-installer';
 
-global.ffmpegpath = require('ffmpeg-static').path.replace('app.asar', 'app.asar.unpacked');
-
+const eConfig = new ElectronMainConfig();
+global.ffbinariesConfig = eConfig.getFFBinariesConfig();
 
 if (process.env.NODE_ENV === 'production') {
   const sourceMapSupport = require('source-map-support');
@@ -16,9 +19,9 @@ if (process.env.NODE_ENV === 'production') {
 
 if (process.env.NODE_ENV === 'development' || process.env.DEBUG_PROD === 'true') {
   require('electron-debug')();
-  const path = require('path');
-  const p = path.join(__dirname, '..', 'app', 'node_modules');
-  require('module').globalPaths.push(p);
+  //const path = require('path');
+  //const p = path.join(__dirname, '..', '..', 'src', 'node_modules');
+  //require('module').globalPaths.push(p);
 }
 
 // Global reference to mainWindow
