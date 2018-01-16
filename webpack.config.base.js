@@ -12,6 +12,19 @@ export default {
   module: {
     rules: [
       {
+        test: /\.ts(x?)$/,
+        exclude: /node_modules/,
+        use: [
+          {
+            loader: 'babel-loader',
+            //options: babelOptions
+          },
+          {
+            loader: 'awesome-typescript-loader'
+          }
+        ]
+      },
+      {
         test: /\.jsx?$/,
         exclude: /node_modules/,
         use: {
@@ -54,7 +67,7 @@ export default {
    * Determine the array of extensions that should be used to resolve modules.
    */
   resolve: {
-    extensions: ['.js', '.jsx', '.json'],
+    extensions: ['.js', '.jsx', '.json', '.ts', '.tsx'],
     modules: [
       path.join(__dirname, 'src'),
       'node_modules',
