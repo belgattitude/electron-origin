@@ -1,8 +1,5 @@
-'use strict'
 
 import { app, BrowserWindow } from 'electron';
-import path from 'path';
-import os from 'os';
 import ElectronMainConfig from './electron-main-config';
 
 const isDevelopment = process.env.NODE_ENV !== 'production';
@@ -10,6 +7,8 @@ const windowStateKeeper = require('electron-window-state');
 import installExtension, { REACT_DEVELOPER_TOOLS, REDUX_DEVTOOLS } from 'electron-devtools-installer';
 
 const eConfig = new ElectronMainConfig();
+
+
 global.ffbinariesConfig = eConfig.getFFBinariesConfig();
 
 if (process.env.NODE_ENV === 'production') {
@@ -47,10 +46,13 @@ function createMainWindow() {
 
   // Create the window using the state information
   let window = new BrowserWindow({
-    'x': mainWindowState.x,
-    'y': mainWindowState.y,
-    'width': mainWindowState.width,
-    'height': mainWindowState.height
+    x: mainWindowState.x,
+    y: mainWindowState.y,
+    width: mainWindowState.width,
+    height: mainWindowState.height,
+    webPreferences: {
+        webSecurity: !isDevelopment,
+    }
   });
 
   // Let us register listeners on the window, so we can update the state

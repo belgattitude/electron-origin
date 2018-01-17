@@ -19,8 +19,17 @@ export default merge.smart(baseConfig, {
 
   entry: [
     'babel-polyfill',
-    './src/electron/electron-renderer.js',
+    './src/electron/electron-renderer.tsx'
   ],
+
+  resolve: {
+    extensions: ['.js', '.jsx', '.json', '.ts', '.tsx'],
+    modules: [
+      path.join(__dirname, 'src'),
+      'node_modules',
+    ]
+  },
+
 
   output: {
     path: path.resolve(__dirname, 'dist/electron'),

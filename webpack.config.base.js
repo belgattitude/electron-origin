@@ -32,8 +32,10 @@ export default {
           options: {
             cacheDirectory: true
           }
-        }
-      },{
+        },
+      },
+
+      {
         test: /\.(scss)$/,
         use: [{
                 loader: 'style-loader', // inject CSS to page
@@ -67,7 +69,7 @@ export default {
    * Determine the array of extensions that should be used to resolve modules.
    */
   resolve: {
-    extensions: ['.js', '.jsx', '.json', '.ts', '.tsx'],
+    extensions: ['.json', '.ts', '.tsx'],
     modules: [
       path.join(__dirname, 'src'),
       'node_modules',
