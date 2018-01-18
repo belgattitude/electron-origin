@@ -1,13 +1,19 @@
 import React from 'react';
 import { render } from 'react-dom';
 import { Provider as ReduxProvider } from 'react-redux';
-import store from '../js/store/index';
+import store from './store/index';
 import createHistory from 'history/createBrowserHistory';
 import App from './containers/App';
 import '../style/style.scss';
 
-const history = createHistory();
 
+import { addMedia } from "./actions/index";
+var win: any = window;
+win.store = store;
+win.addMedia = addMedia;
+console.log('store', store);
+
+const history = createHistory();
 
 const renderApp = (Component: any, elementId: string) => {
     render(
