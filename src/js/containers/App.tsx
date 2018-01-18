@@ -3,7 +3,7 @@ import { hot } from 'react-hot-loader';
 import {Button, Reboot} from 'material-ui';
 import Typography from 'material-ui/Typography';
 
-import MediaPreview from '../components/MediaPreview';
+import ConnectedMediaPreview from '../components/ConnectedMediaPreview';
 
 
 interface Props {
@@ -18,7 +18,7 @@ class App extends React.Component<Props, {}> {
 
     render() {
         const text = 'Hello world';
-        const filename = '/home/sebastien/Videos/MVI_0291.m4v';
+        //const filename = '/home/sebastien/Videos/MVI_0291.m4v';
         return (
             <div>
                 <Reboot />
@@ -30,7 +30,7 @@ class App extends React.Component<Props, {}> {
                     Lizards are a widespread group of squamate reptiles, with over 6,000 species, ranging
                     across all continents except Antarctica
                 </Typography>
-                <MediaPreview filename={filename}/>
+                <ConnectedMediaPreview/>
             </div>
         );
     }

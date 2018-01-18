@@ -1,7 +1,7 @@
 import React from 'react';
 
 interface Props {
-    filename: string
+    media: string
 }
 
 class MediaPreview extends React.Component<Props, {}> {
@@ -25,7 +25,7 @@ class MediaPreview extends React.Component<Props, {}> {
         console.log('filename', filename);
         const fileURL = window.URL.createObjectURL(filename);
         */
-        const localfile = "file://" + this.props.filename;
+        const localfile = "file://" + this.props.media;
         /*
         image.onload = function() {
         URL.revokeObjectURL(imageUrl);
@@ -35,12 +35,8 @@ class MediaPreview extends React.Component<Props, {}> {
         console.log('localfile', localfile);
         return (
             <div>
-                <video controls width="200">
-                    <source src={localfile} />
-                </video>
-                <video controls width="200">
-                    <source src={localfile} />
-                </video>
+                <p>{localfile}</p>
+                <video controls width="500" src={localfile} />
             </div>
         );
     }

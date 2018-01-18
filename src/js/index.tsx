@@ -6,12 +6,15 @@ import createHistory from 'history/createBrowserHistory';
 import App from './containers/App';
 import '../style/style.scss';
 
+/** for tests */
 
 import { addMedia } from "./actions/index";
-var win: any = window;
+let win: any = window;
 win.store = store;
 win.addMedia = addMedia;
 console.log('store', store);
+
+/** end of redux tests */
 
 const history = createHistory();
 
