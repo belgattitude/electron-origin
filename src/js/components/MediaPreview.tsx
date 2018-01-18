@@ -41,7 +41,6 @@ class MediaPreview extends React.Component<Props, {}> {
                 <video controls width="200">
                     <source src={localfile} />
                 </video>
-
             </div>
         );
     }
