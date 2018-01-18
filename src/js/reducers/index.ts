@@ -1,7 +1,7 @@
 import { MEDIA_LOADED } from "../constants/actionTypes";
 
 const initialState = {
-  media: '/home/sebastien/Videos/MVI_0291.m4v'
+  media: '/home/sebastien/Videos/Dance/Smoke/Smoke_1_3.mp4'
 };
 
 const rootReducer = (state = initialState, action:any) => {
