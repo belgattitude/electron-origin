@@ -9,8 +9,8 @@ class Ffmpeg {
     }
 
     async getVersion(): Promise<string> {
-        //const getV = async () => {
-        let stdout =   await execa(this.getFFMpegPath(), ['-version'], {stripEof: true});
+        // const getV = async () => {
+        const stdout =   await execa(this.getFFMpegPath(), ['-version'], {stripEof: true});
         return stdout.stdout;
     }
 
@@ -19,6 +19,5 @@ class Ffmpeg {
     }
 
 }
-
 
 export default Ffmpeg;

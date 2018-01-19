@@ -9,9 +9,9 @@ class Ffprobe {
     }
 
     async getInfo(file: string): Promise<string> {
-        let stdout =  await execa(this.getFFProbePath(), [
+        const stdout =  await execa(this.getFFProbePath(), [
             '-v quiet -print_format json -show_format -show_streams',
-            file
+            file,
         ], {stripEof: false});
         return stdout.stderr;
     }
@@ -19,18 +19,17 @@ class Ffprobe {
     getInfo2(file: string): any {
         execa(
             this.getFFProbePath(),
-            ['-v', 'quiet', '-print_format', 'json' ,'-show_format', '-show_streams',
+            ['-v', 'quiet', '-print_format', 'json' , '-show_format', '-show_streams',
             file]
         ).then((result) => {
             console.log('result', JSON.parse(result.stdout));
-             return result;
+            return result;
         });
     }
 
-
     async getVersion(): Promise<string> {
-        //const getV = async () => {
-        let stdout =   await execa(this.getFFProbePath(), ['-version'], {stripEof: true});
+        // const getV = async () => {
+        const stdout =   await execa(this.getFFProbePath(), ['-version'], {stripEof: true});
         return stdout.stdout;
     }
 
@@ -39,6 +38,5 @@ class Ffprobe {
     }
 
 }
-
 
 export default Ffprobe;

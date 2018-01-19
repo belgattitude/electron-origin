@@ -1,23 +1,21 @@
 
-import { app, BrowserWindow } from 'electron';
-import ElectronMainConfig from './electron-main-config';
-
-const isDevelopment = process.env.NODE_ENV !== 'production';
+import { app, BrowserWindow } from "electron";
+import ElectronMainConfig from "./electron-main-config";
 const windowStateKeeper = require('electron-window-state');
-import installExtension, { REACT_DEVELOPER_TOOLS, REDUX_DEVTOOLS } from 'electron-devtools-installer';
+import installExtension, { REACT_DEVELOPER_TOOLS, REDUX_DEVTOOLS } from "electron-devtools-installer";
 
+const isDevelopment = process.env.NODE_ENV !== "production";
 const eConfig = new ElectronMainConfig();
-
 
 global.ffbinariesConfig = eConfig.getFFBinariesConfig();
 
-if (process.env.NODE_ENV === 'production') {
-  const sourceMapSupport = require('source-map-support');
+if (process.env.NODE_ENV === "production") {
+  const sourceMapSupport = require("source-map-support");
   sourceMapSupport.install();
 }
 
-if (process.env.NODE_ENV === 'development' || process.env.DEBUG_PROD === 'true') {
-  require('electron-debug')();
+if (process.env.NODE_ENV === "development" || process.env.DEBUG_PROD === "true") {
+  require("electron-debug")();
   //const path = require('path');
   //const p = path.join(__dirname, '..', '..', 'src', 'node_modules');
   //require('module').globalPaths.push(p);
@@ -29,19 +27,19 @@ let mainWindow;
 
 function createMainWindow() {
 
-  if (process.env.NODE_ENV === 'development' || process.env.DEBUG_PROD === 'true') {
+  if (process.env.NODE_ENV === "development" || process.env.DEBUG_PROD === "true") {
     installExtension(REACT_DEVELOPER_TOOLS)
       .then((name) => console.log(`Added Extension:  ${name}`))
-      .catch((err) => console.log('An error occurred: ', err));
+      .catch((err) => console.log("An error occurred: ", err));
     installExtension(REDUX_DEVTOOLS)
       .then((name) => console.log(`Added Extension:  ${name}`))
-      .catch((err) => console.log('An error occurred: ', err));
+      .catch((err) => console.log("An error occurred: ", err));
   }
 
   // Load the previous state with fallback to defaults
   let mainWindowState = windowStateKeeper({
     defaultWidth: 1000,
-    defaultHeight: 800
+    defaultHeight: 800,
   });
 
   // Create the window using the state information
@@ -52,7 +50,7 @@ function createMainWindow() {
     height: mainWindowState.height,
     webPreferences: {
         webSecurity: !isDevelopment,
-    }
+    },
   });
 
   // Let us register listeners on the window, so we can update the state
@@ -65,42 +63,42 @@ function createMainWindow() {
   // points to `index.html` in production
   const url = isDevelopment
     ? `http://localhost:3000`
-    : `file://${__dirname}/index.html`
+    : `file://${__dirname}/index.html`;
 
   if (true) {
-    window.webContents.openDevTools()
+    window.webContents.openDevTools();
   }
 
-  window.loadURL(url)
+  window.loadURL(url);
 
-  window.on('closed', () => {
-    mainWindow = null
-  })
+  window.on("closed", () => {
+    mainWindow = null;
+  });
 
-  window.webContents.on('devtools-opened', () => {
-    window.focus()
+  window.webContents.on("devtools-opened", () => {
+    window.focus();
     setImmediate(() => {
-      window.focus()
-    })
-  })
+      window.focus();
+    });
+  });
 
-  return window
+  return window;
 }
 
 // Quit application when all windows are closed
-app.on('window-all-closed', () => {
+app.on("window-all-closed", () => {
   // On macOS it is common for applications to stay open
   // until the user explicitly quits
-  if (process.platform !== 'darwin') app.quit()
-})
+  if (process.platform !== "darwin") { app.quit(); }
+});
 
-app.on('activate', () => {
+app.on("activate", () => {
   // On macOS it is common to re-create a window
   // even after all windows have been closed
-  if (mainWindow === null) mainWindow = createMainWindow()
-})
+  if (mainWindow === null) { mainWindow = createMainWindow(); }
+});
 
 // Create main BrowserWindow when electron is ready
-app.on('ready', () => {
-  mainWindow = createMainWindow()
-})
+app.on("ready", () => {
+  mainWindow = createMainWindow();
+});

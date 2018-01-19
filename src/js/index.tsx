@@ -8,8 +8,8 @@ import '../style/style.scss';
 
 /** for tests */
 
-import { addMedia } from "./actions/index";
-let win: any = window;
+import { addMedia } from './actions/index';
+const win: any = window;
 win.store = store;
 win.addMedia = addMedia;
 console.log('store', store);
@@ -24,8 +24,7 @@ const renderApp = (Component: any, elementId: string) => {
             <Component history={history}/>
         </ReduxProvider>,
         document.getElementById(elementId)
-    )
-}
+    );
+};
 
 renderApp(App, 'app');
-

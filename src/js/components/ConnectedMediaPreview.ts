@@ -1,7 +1,7 @@
-import { connect } from "react-redux";
-import MediaPreview from "./MediaPreview";
+import { connect } from 'react-redux';
+import MediaPreview from './MediaPreview';
 
-const mapStateToProps = (state:any) => {
+const mapStateToProps = (state: any) => {
     return { media: state.media };
 };
 

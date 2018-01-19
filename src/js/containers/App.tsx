@@ -2,20 +2,18 @@ import React from 'react';
 import { hot } from 'react-hot-loader';
 import {Button, Reboot} from 'material-ui';
 import Typography from 'material-ui/Typography';
-import { connect } from "react-redux";
+import { connect } from 'react-redux';
 import ConnectedMediaPreview from '../components/ConnectedMediaPreview';
 
-
-import { addMedia } from "../actions/index";
+import { addMedia } from '../actions/index';
 const mapDispatchToProps = (dispatch: any) => {
     return {
-        addMedia: (media:any) => dispatch(addMedia(media))
+        addMedia: (media: any) => dispatch(addMedia(media)),
     };
 };
 
-
 interface Props {
-    addMedia: (media:any) => {};
+    addMedia: (media: any) => {};
 }
 
 class App extends React.Component<Props, {}> {

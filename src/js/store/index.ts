@@ -1,7 +1,7 @@
-import { createStore } from "redux";
-import rootReducer from "../reducers/index";
+import { createStore } from 'redux';
+import rootReducer from '../reducers/index';
 
-let win: any = window;
+const win: any = window;
 
 const store = createStore(
   rootReducer,
@@ -9,4 +9,3 @@ const store = createStore(
 );
 
 export default store;
-
