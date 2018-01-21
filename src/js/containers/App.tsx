@@ -12,8 +12,13 @@ const mapDispatchToProps = (dispatch: any) => {
     };
 };
 
+const mapStateToProps = (state: any) => {
+    return { media: state.media };
+};
+
 interface Props {
-    addMedia: (media: any) => {};
+    addMedia: (media: any) => {},
+    media: any
 }
 
 class App extends React.Component<Props, {}> {
@@ -21,6 +26,11 @@ class App extends React.Component<Props, {}> {
     constructor(props: Props) {
         super(props);
         this.onClick = this.onClick.bind(this);
+    }
+
+    convert() {
+        console.log('Converting video', this.props.media);
+
     }
 
     onClick() {
@@ -34,16 +44,20 @@ class App extends React.Component<Props, {}> {
                 <Reboot />
                 <h3>Welcomes {text}</h3>
                 <Button raised color="primary" onClick={this.onClick}>
-                    Click me
+                    Change video
                 </Button>
                 <Typography component="p">
                     Lizards are a widespread group of squamate reptiles, with over 6,000 species, ranging
                     across all continents except Antarctica
                 </Typography>
+                <Button raised onClick={ () => { this.convert() }}>
+                    Convert video
+                </Button>
+
                 <ConnectedMediaPreview/>
             </div>
         );
     }
 }
-const ConnectedApp = connect(null, mapDispatchToProps)(App);
+const ConnectedApp = connect(mapStateToProps, mapDispatchToProps)(App);
 export default hot(module)(ConnectedApp);
