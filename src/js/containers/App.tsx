@@ -40,17 +40,19 @@ class App extends React.Component<Props, {}> {
         return (require('electron').remote.getGlobal('ffbinariesConfig'));
     }
 
-    loadVideoInfos() {
+    async loadVideoInfos() {
         console.log('Converting video', this.props.media);
         const filename = this.props.media;
         const ffprobe = new Ffprobe(App.getFFBinariesConfig().ffprobe);
-        ffprobe.getFileInfo(filename).then(
-            (info: MediaInfoInterface) => {
-                console.log('info', info);
+        const infos = await ffprobe.getFileInfo(filename).then(
+            (infos: MediaInfoInterface) => {
+                console.log('info', infos);
+                return infos;
             }
         ).catch((reason: any) => {
             console.log('failed', reason);
         });
+        console.log('infos', infos);
         console.log('ITS DONE');
     }
 

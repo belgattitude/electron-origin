@@ -9,26 +9,6 @@ class Ffprobe {
         this.ffprobePath = ffprobePath;
     }
 
-    async getInfo(file: string): Promise<string> {
-        const stdout =  await execa(this.getFFProbePath(), [
-            '-v', 'quiet', '-print_format', 'json' , '-show_format', '-show_streams',
-            file,
-        ], {stripEof: false});
-        return stdout.stderr;
-    }
-
-    getInfo2(file: string): any {
-        execa(
-            this.getFFProbePath(), [
-                '-v', 'quiet', '-print_format', 'json' , '-show_format', '-show_streams',
-                file,
-            ]
-        ).then((result) => {
-            console.log('result', JSON.parse(result.stdout));
-            return result;
-        });
-    }
-
     async getFileInfo(file: string): Promise<MediaInfoInterface> {
         return this.executeAsync(
             file,
@@ -41,12 +21,11 @@ class Ffprobe {
     }
 
     async getVersion(): Promise<string> {
-        // const getV = async () => {
         const stdout =   await execa(this.getFFProbePath(), ['-version'], {stripEof: true});
         return stdout.stdout;
     }
 
-    async executeAsync(filename: string, args: string[], options?: Options): Promise<any> {
+    async executeAsync(filename: string, args: string[], options?: Options): Promise<ExecaReturns> {
         const exec = execa(
             this.getFFProbePath(),
             [ ... args, filename ],
@@ -58,11 +37,14 @@ class Ffprobe {
         return exec;
     }
 
-    /*
-    executeSync(options: string[], file: string): string {
 
-    }
-    */
+    /*
+    executeSync(filename: string, args: string[], options?: Options): Promise<ExecaReturns> {
+        return async () => {
+            return await this.executeAsync(filename, args, options);
+        }
+    }*/
+
     getFFProbePath(): string {
         return this.ffprobePath;
     }
