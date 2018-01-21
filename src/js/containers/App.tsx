@@ -7,7 +7,8 @@ import {connect} from 'react-redux';
 import {addMedia} from '@src/actions';
 import Ffprobe from '@src/lib/FFProbe/FFProbe';
 import {MediaInfoInterface} from '@src/lib/FFProbe/MediaInfoInterface';
-import ConnectedMediaPreview from '@src/components/ConnectedMediaPreview';
+import MediaPreviewConnected from '@src/components/MediaPreviewConnected';
+import MediaInfoConnected from '@src/components/MediaInfoConnected';
 
 const mapDispatchToProps = (dispatch: any) => {
     return {
@@ -44,15 +45,15 @@ class App extends React.Component<Props, {}> {
         console.log('Converting video', this.props.media);
         const filename = this.props.media;
         const ffprobe = new Ffprobe(App.getFFBinariesConfig().ffprobe);
-        const infos = await ffprobe.getFileInfo(filename).then(
-            (infos: MediaInfoInterface) => {
-                console.log('info', infos);
-                return infos;
+        const fileInfo = await ffprobe.getFileInfo(filename).then(
+            (info: MediaInfoInterface) => {
+                console.log('info', info);
+                return info;
             }
         ).catch((reason: any) => {
             console.log('failed', reason);
         });
-        console.log('infos', infos);
+        console.log('infos', fileInfo);
         console.log('ITS DONE');
     }
 
@@ -77,7 +78,8 @@ class App extends React.Component<Props, {}> {
                     Get video info
                 </Button>
 
-                <ConnectedMediaPreview/>
+                <MediaPreviewConnected />
+                <MediaInfoConnected/>
             </div>
         );
     }

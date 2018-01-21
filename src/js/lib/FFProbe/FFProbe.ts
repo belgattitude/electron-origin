@@ -37,7 +37,6 @@ class Ffprobe {
         return exec;
     }
 
-
     /*
     executeSync(filename: string, args: string[], options?: Options): Promise<ExecaReturns> {
         return async () => {

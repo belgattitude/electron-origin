@@ -1,10 +1,12 @@
 import { MEDIA_LOADED } from '../constants/actionTypes';
 
-const initialState = {
+type AppState = { media: string };
+
+const initialState: AppState = {
   media: '/home/sebastien/Videos/Dance/Smoke/Smoke_1_3.mp4',
 };
 
-const rootReducer = (state = initialState, action: any) => {
+const rootReducer = (state = initialState, action: any): AppState => {
     console.log('ROOTREDUCER CALLED', action.type);
 
     switch (action.type) {

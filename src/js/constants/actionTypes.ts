@@ -1,2 +1,2 @@
 export const MEDIA_LOADED = 'MEDIA_LOADED';
-export const REMOVE_MEDIA = 'REMOVE_MEDIA';
+export const GET_MEDIA_INFO = 'GET_MEDIA_INFO';
