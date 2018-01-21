@@ -6,6 +6,8 @@ import { connect } from 'react-redux';
 import ConnectedMediaPreview from '../components/ConnectedMediaPreview';
 
 import { addMedia } from '../actions/index';
+import Ffprobe from '../lib/FFProbe/FFProbe';
+import {MediaInfoInterface} from '../lib/FFProbe/MediaInfoInterface';
 const mapDispatchToProps = (dispatch: any) => {
     return {
         addMedia: (media: any) => dispatch(addMedia(media)),
@@ -21,16 +23,40 @@ interface Props {
     media: any
 }
 
+
+interface FFBinariesConfigInterface {
+    path: string,
+    ffmpeg: string,
+    ffprobe: string
+};
+
 class App extends React.Component<Props, {}> {
 
     constructor(props: Props) {
         super(props);
-        this.onClick = this.onClick.bind(this);
     }
 
     convert() {
         console.log('Converting video', this.props.media);
+        const filename = this.props.media;
+        const ffprobe = new Ffprobe(this.getFFBinariesConfig().ffprobe);
+        ffprobe.getFileInfo(filename).then(
+            (info: MediaInfoInterface) => {
+                console.log('info', info);
+            }
+        ).catch((reason: any) => {
+            console.log('failed', reason);
+        });
+        console.log('ITS DONE');
 
+
+
+
+    }
+
+    getFFBinariesConfig(): FFBinariesConfigInterface {
+        const ffbinariesConfig: FFBinariesConfigInterface = require('electron').remote.getGlobal('ffbinariesConfig');
+        return ffbinariesConfig;
     }
 
     onClick() {
@@ -43,7 +69,7 @@ class App extends React.Component<Props, {}> {
             <div>
                 <Reboot />
                 <h3>Welcomes {text}</h3>
-                <Button raised color="primary" onClick={this.onClick}>
+                <Button raised color="primary" onClick={ () => { this.onClick() } }>
                     Change video
                 </Button>
                 <Typography component="p">
