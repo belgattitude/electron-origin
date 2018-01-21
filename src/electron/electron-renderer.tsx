@@ -1,9 +1,9 @@
 import React from 'react';
 import { render } from 'react-dom';
 import { Provider as ReduxProvider } from 'react-redux';
-import store from '../js/store/index';
+import store from '@src/store/index';
 import createHistory from 'history/createBrowserHistory';
-import App from '../js/containers/App';
+import App from '@src/containers/App';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 const history = createHistory();

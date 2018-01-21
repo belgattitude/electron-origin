@@ -23,6 +23,10 @@ module.exports = {
       path.join(__dirname, 'src'),
       'node_modules',
     ],
+    alias: {
+      // https://medium.com/@martin_hotell/type-safe-es2015-module-import-path-aliasing-with-webpack-typescript-and-jest-fe461347e010
+      '@src': path.resolve(__dirname, 'src/js/'),
+    }
   },
   output: {
     path: path.resolve(__dirname, 'build'),

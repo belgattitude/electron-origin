@@ -8,7 +8,7 @@ import '../style/style.scss';
 
 /** for tests */
 
-import { addMedia } from './actions/index';
+import { addMedia } from '@src/actions/index';
 const win: any = window;
 win.store = store;
 win.addMedia = addMedia;

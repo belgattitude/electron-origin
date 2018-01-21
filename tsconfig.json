@@ -22,7 +22,13 @@
     "removeComments": false,
     "preserveConstEnums": true,
     "sourceMap": true,
-    "skipLibCheck": true
+    "skipLibCheck": true,
+    "baseUrl": ".",
+    "paths": {
+      "@src/*": [
+        "src/js/*"
+      ]
+    }
   },
   "include": [
     "src/**/*"

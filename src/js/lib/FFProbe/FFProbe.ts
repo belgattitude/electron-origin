@@ -1,4 +1,3 @@
-//import execa, {ExecaChildProcess, ExecaReturns} from 'execa';
 import execa, {ExecaReturns, Options} from 'execa';
 import { MediaInfoInterface } from './MediaInfoInterface';
 
@@ -13,7 +12,7 @@ class Ffprobe {
     async getInfo(file: string): Promise<string> {
         const stdout =  await execa(this.getFFProbePath(), [
             '-v', 'quiet', '-print_format', 'json' , '-show_format', '-show_streams',
-            file
+            file,
         ], {stripEof: false});
         return stdout.stderr;
     }
@@ -22,7 +21,7 @@ class Ffprobe {
         execa(
             this.getFFProbePath(), [
                 '-v', 'quiet', '-print_format', 'json' , '-show_format', '-show_streams',
-                file
+                file,
             ]
         ).then((result) => {
             console.log('result', JSON.parse(result.stdout));
@@ -30,8 +29,7 @@ class Ffprobe {
         });
     }
 
-    async getFileInfo(file: string): Promise<MediaInfoInterface> //ExecaChildProcess
-    {
+    async getFileInfo(file: string): Promise<MediaInfoInterface> {
         return this.executeAsync(
             file,
             ['-v', 'quiet', '-print_format', 'json' , '-show_format', '-show_streams'],
@@ -41,7 +39,6 @@ class Ffprobe {
             return info;
         });
     }
-
 
     async getVersion(): Promise<string> {
         // const getV = async () => {

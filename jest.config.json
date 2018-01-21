@@ -9,6 +9,9 @@
     "tsx",
     "js"
   ],
+  "moduleNameMapper": {
+    "^@src/(.*)": "<rootDir>/src/js/$1"
+  },
   "globals": {
     "window": {},
     "ts-jest": {
