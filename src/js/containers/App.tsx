@@ -4,7 +4,7 @@ import {Button, Reboot} from 'material-ui';
 import Typography from 'material-ui/Typography';
 import {connect} from 'react-redux';
 
-import {addMedia} from '@src/actions';
+import {loadFile} from '@src/actions';
 import Ffprobe from '@src/lib/FFProbe/FFProbe';
 import {MediaInfoInterface} from '@src/lib/FFProbe/MediaInfoInterface';
 import MediaPreviewConnected from '@src/components/MediaPreviewConnected';
@@ -12,7 +12,7 @@ import MediaInfoConnected from '@src/components/MediaInfoConnected';
 
 const mapDispatchToProps = (dispatch: any) => {
     return {
-        addMedia: (media: any) => dispatch(addMedia(media)),
+        loadFile: (media: any) => dispatch(loadFile(media)),
     };
 };
 
@@ -21,7 +21,7 @@ const mapStateToProps = (state: any) => {
 };
 
 interface Props {
-    addMedia: (media: any) => {};
+    loadFile: (media: any) => {};
     media: any;
 }
 
@@ -57,17 +57,18 @@ class App extends React.Component<Props, {}> {
         console.log('ITS DONE');
     }
 
-    onClick() {
-        this.props.addMedia('/home/sebastien/Videos/Dance/Smoke/smoke_3_3.mp4');
+    addFile(file: string) {
+        this.props.loadFile(file);
     }
 
     render() {
         const text = 'Hello world';
+        const otherFile = '/home/sebastien/Videos/Dance/Smoke/smoke_3_3.mp4';
         return (
             <div>
                 <Reboot />
                 <h3>Welcomes {text}</h3>
-                <Button raised={true} color="primary" onClick={() => { this.onClick(); }}>
+                <Button raised={true} color="primary" onClick={() => { this.addFile(otherFile); }}>
                     Change video
                 </Button>
                 <Typography component="p">

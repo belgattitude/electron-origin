@@ -8,10 +8,10 @@ import '../style/style.scss';
 
 /** for tests */
 
-import { addMedia } from '@src/actions/index';
+import { loadFile } from '@src/actions/index';
 const win: any = window;
 win.store = store;
-win.addMedia = addMedia;
+win.loadFile = loadFile;
 console.log('store', store);
 
 /** end of redux tests */

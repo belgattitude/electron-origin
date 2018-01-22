@@ -1,10 +1,11 @@
-import { MEDIA_LOADED } from '../constants/actionTypes';
+import { LOAD_FILE, GET_MEDIA_INFO } from '../constants/actionTypes';
 
-export const addMedia = (media: string) => ({ type: MEDIA_LOADED, payload: media });
+export const loadFile = (media: string) => ({ type: LOAD_FILE, payload: media });
+export const getMediaInfo = (media: string) => ({ type: GET_MEDIA_INFO, payload: media });
 
 /*
 export class AddMedia {
-    readonly type = MEDIA_LOADED;
+    readonly type = LOAD_FILE;
     constructor(public payload: string) {};
 }
 

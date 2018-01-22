@@ -9,7 +9,7 @@ class MediaInfo extends React.Component<Props, {}> {
     public render() {
         return (
             <div>
-                <p>Info</p>
+                <p>{this.props.media}</p>
             </div>
         );
     }

@@ -1,4 +1,4 @@
-import { MEDIA_LOADED } from '../constants/actionTypes';
+import { LOAD_FILE, GET_MEDIA_INFO } from '../constants/actionTypes';
 
 type AppState = { media: string };
 
@@ -8,7 +8,9 @@ const initialState: AppState = {
 
 const rootReducer = (state = initialState, action: any): AppState => {
     switch (action.type) {
-      case MEDIA_LOADED:
+      case LOAD_FILE:
+          return { ...state, media: action.payload };
+      case GET_MEDIA_INFO:
           return { ...state, media: action.payload };
       default:
           return state;
