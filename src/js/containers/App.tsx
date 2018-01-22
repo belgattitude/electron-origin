@@ -4,25 +4,25 @@ import {Button, Reboot} from 'material-ui';
 import Typography from 'material-ui/Typography';
 import {connect} from 'react-redux';
 
-import {loadFile} from '@src/actions';
+import {addFile, setMediaInfo} from '@src/actions';
 import Ffprobe from '@src/lib/FFProbe/FFProbe';
 import {MediaInfoInterface} from '@src/lib/FFProbe/MediaInfoInterface';
 import MediaPreviewConnected from '@src/components/MediaPreviewConnected';
 import MediaInfoConnected from '@src/components/MediaInfoConnected';
 
-const mapDispatchToProps = (dispatch: any) => {
-    return {
-        loadFile: (media: any) => dispatch(loadFile(media)),
-    };
-};
+const mapDispatchToProps = (dispatch: any) => ({
+    addFile: (file: string) => dispatch(addFile(file)),
+    setMediaInfo: (mediaInfo: MediaInfoInterface) => dispatch(setMediaInfo(mediaInfo)),
+});
 
 const mapStateToProps = (state: any) => {
-    return { media: state.media };
+    return { file: state.file };
 };
 
 interface Props {
-    loadFile: (media: any) => {};
-    media: any;
+    file: string;
+    addFile: (file: string) => {};
+    setMediaInfo: (mediaInfo: MediaInfoInterface) => {};
 }
 
 interface FFBinariesConfigInterface {
@@ -42,13 +42,15 @@ class App extends React.Component<Props, {}> {
     }
 
     async loadVideoInfos() {
-        console.log('Converting video', this.props.media);
-        const filename = this.props.media;
+        console.log('Converting video', this.props.file);
+        const filename = this.props.file;
         const ffprobe = new Ffprobe(App.getFFBinariesConfig().ffprobe);
         const fileInfo = await ffprobe.getFileInfo(filename).then(
             (info: MediaInfoInterface) => {
                 console.log('info', info);
+                this.props.setMediaInfo(info);
                 return info;
+
             }
         ).catch((reason: any) => {
             console.log('failed', reason);
@@ -58,7 +60,7 @@ class App extends React.Component<Props, {}> {
     }
 
     addFile(file: string) {
-        this.props.loadFile(file);
+        this.props.addFile(file);
     }
 
     render() {

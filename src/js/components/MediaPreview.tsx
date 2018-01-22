@@ -1,7 +1,7 @@
 import React from 'react';
 
 interface Props {
-    media: string;
+    file: string;
 }
 
 class MediaPreview extends React.Component<Props, {}> {
@@ -24,7 +24,7 @@ class MediaPreview extends React.Component<Props, {}> {
         console.log('filename', filename);
         const fileURL = window.URL.createObjectURL(filename);
         */
-        const localfile: string = 'file://' + this.props.media;
+        const localfile: string = 'file://' + this.props.file;
         /*
         image.onload = function() {
         URL.revokeObjectURL(imageUrl);

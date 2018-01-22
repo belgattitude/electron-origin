@@ -1,19 +1,15 @@
-import { LOAD_FILE, GET_MEDIA_INFO } from '../constants/actionTypes';
+import { ADD_FILE, SET_MEDIA_INFO } from '../constants/actionTypes';
+import {MediaInfoInterface} from '@src/lib/FFProbe/MediaInfoInterface';
 
-export const loadFile = (media: string) => ({ type: LOAD_FILE, payload: media });
-export const getMediaInfo = (media: string) => ({ type: GET_MEDIA_INFO, payload: media });
+export const addFile = (file: string) => ({ type: ADD_FILE, payload: file });
+
+export const setMediaInfo = (info: MediaInfoInterface) => ({type: SET_MEDIA_INFO, payload: info});
 
 /*
-export class AddMedia {
-    readonly type = LOAD_FILE;
-    constructor(public payload: string) {};
+const fetchMediaInfo = (file: string) => (dispatch: any) => {
+    //dispatch(requestPosts(subreddit))
+    return fetch(`https://www.reddit.com/r/${subreddit}.json`)
+        .then(response => response.json())
+        .then(json => dispatch(getMediaInfo(file, json)))
 }
-
-export class GetMediaInfo {
-    readonly type = GET_MEDIA_INFO;
-    constructor(public payload: string) {};
-}
-
-export type Actions = AddMedia | GetMediaInfo;
-
 */

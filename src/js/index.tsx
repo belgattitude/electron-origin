@@ -6,16 +6,6 @@ import createHistory from 'history/createBrowserHistory';
 import App from './containers/App';
 import '../style/style.scss';
 
-/** for tests */
-
-import { loadFile } from '@src/actions/index';
-const win: any = window;
-win.store = store;
-win.loadFile = loadFile;
-console.log('store', store);
-
-/** end of redux tests */
-
 const history = createHistory();
 
 const renderApp = (Component: any, elementId: string) => {

@@ -1,15 +1,22 @@
 import React from 'react';
+import {MediaInfoInterface} from '@src/lib/FFProbe/MediaInfoInterface';
 
 interface Props {
-    media: string;
+    file: string;
+    mediaInfo: MediaInfoInterface;
 }
 
 class MediaInfo extends React.Component<Props, {}> {
 
     public render() {
+
+        const mediaInfo = this.props.mediaInfo;
+
+        const info = JSON.stringify(mediaInfo);
+
         return (
             <div>
-                <p>{this.props.media}</p>
+                <p>{info}</p>
             </div>
         );
     }
