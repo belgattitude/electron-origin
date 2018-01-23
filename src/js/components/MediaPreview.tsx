@@ -12,7 +12,7 @@ class MediaPreview extends React.Component<Props, {}> {
 
     public render() {
         // const URL = this.getGlobalUrl();
-
+        console.log('RENDERING MEDIAPREVIEW');
         /*
         const media: object = {
             pathname: this.props.filename,

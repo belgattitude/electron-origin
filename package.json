@@ -27,6 +27,7 @@
     "@types/electron-devtools-installer": "^2.0.2",
     "@types/execa": "^0.8.1",
     "@types/fluent-ffmpeg": "^2.1.6",
+    "@types/get-stream": "^3.0.1",
     "@types/history": "^4.6.2",
     "@types/jest": "^22.0.1",
     "@types/node": "^9.3.0",
@@ -50,13 +51,14 @@
     "concurrently": "^3.5.1",
     "cross-env": "^5.1.3",
     "css-loader": "^0.28.9",
-    "electron": "1.7.10",
-    "electron-builder": "^19.54.0",
+    "electron": "1.7.11",
+    "electron-builder": "^19.55.2",
     "electron-debug": "^1.5.0",
     "electron-devtools-installer": "^2.2.3",
     "extract-text-webpack-plugin": "^3.0.2",
     "ffbinaries": "^1.0.3",
     "file-loader": "^1.1.6",
+    "get-stream": "^3.0.0",
     "html-loader": "^0.5.5",
     "html-webpack-harddisk-plugin": "^0.1.0",
     "html-webpack-plugin": "^2.30.1",
@@ -106,7 +108,7 @@
     "react-spinkit": "^3.0.0",
     "redux": "^3.7.2",
     "redux-thunk": "^2.2.0",
-    "styled-components": "^2.4.0"
+    "styled-components": "^3.0.2"
   },
   "build": {
     "appId": "io.soluble.course",
