@@ -5,7 +5,7 @@ export type AppState = {
     file: string;
     loading: boolean;
     mediaInfo?: MediaInfoInterface;
-    conversion?: any
+    conversion?: any;
 };
 
 const initialState: AppState = {

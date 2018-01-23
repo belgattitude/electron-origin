@@ -46,7 +46,7 @@ class App extends React.Component<Props, {}> {
             (info: MediaInfoInterface) => {
                 this.props.setMediaInfo(info);
                 // For debug
-                //ffmpeg -i input.flv -vcodec mpeg4 -acodec aac output.mp4
+                // ffmpeg -i input.flv -vcodec mpeg4 -acodec aac output.mp4
                 const options: ConvertOptionsInterface = {
                         videoCodec: 'vp9',
                         audioCodec: 'aac',

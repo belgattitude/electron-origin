@@ -5,9 +5,9 @@ import {ConvertOptionsInterface} from '@src/lib/FFMpeg/ConvertPropsInterface';
 
 interface Props {
     conversion: {
-        srcFile: string,
-        destFile: string,
-        options: ConvertOptionsInterface
+        srcFile: string;
+        destFile: string;
+        options: ConvertOptionsInterface;
     };
 }
 

@@ -28,8 +28,7 @@ class FFMpeg {
 
         const rl = readline.createInterface(process.stderr);
         rl.on('line', (line) => {
-            //frame=  219 fps= 14 q=0.0 Lsize=     398kB time=00:00:08.75 bitrate= 372.6kbits/s speed=0.55x
-            //console.log('line', line);
+            // frame=  219 fps= 14 q=0.0 Lsize=     398kB time=00:00:08.75 bitrate= 372.6kbits/s speed=0.55x
             if (line.match(/^frame=/)) {
                 const properties = line.replace(/(=(\ )+)/g, '=').split(' ');
                 const data = properties.reduce((accumulator: any, keyPair: string) => {
