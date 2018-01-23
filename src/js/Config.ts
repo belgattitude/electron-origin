@@ -1,5 +1,5 @@
 
-const electron = require('electron');
+import electron from 'electron';
 
 export interface FFBinariesConfigInterface {
     path: string;

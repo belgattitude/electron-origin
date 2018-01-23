@@ -37,7 +37,7 @@ class Converter extends React.Component<Props, {}> {
         return (
             <div>
                 <p>HELLO {conv}</p>
-                <button onClick={() => {this.convertVideo();}}>Convert</button>
+                <button onClick={() => {this.convertVideo(); }}>Convert</button>
             </div>
         );
     }
