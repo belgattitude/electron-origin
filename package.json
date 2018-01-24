@@ -24,7 +24,6 @@
     "tsc": "tsc -p . --noEmit"
   },
   "devDependencies": {
-    "@types/electron-devtools-installer": "^2.0.2",
     "@types/execa": "^0.8.1",
     "@types/fluent-ffmpeg": "^2.1.6",
     "@types/history": "^4.6.2",
@@ -33,6 +32,9 @@
     "@types/react": "^16.0.34",
     "@types/react-dom": "^16.0.3",
     "@types/react-redux": "^5.0.14",
+    "@types/react-router-redux": "^5.0.11",
+    "@types/react-transition-group": "^2.0.6",
+    "@types/source-map-support": "^0.4.0",
     "add-module-exports-webpack-plugin": "^0.1.0",
     "autoprefixer": "^7.2.5",
     "awesome-typescript-loader": "^3.4.1",
@@ -103,10 +105,14 @@
     "react-dom": "^16.2.0",
     "react-dropzone": "^4.2.7",
     "react-redux": "^5.0.6",
+    "react-router-redux": "^4.0.8",
     "react-spinkit": "^3.0.0",
     "redux": "^3.7.2",
     "redux-thunk": "^2.2.0",
-    "styled-components": "^3.0.2"
+    "styled-components": "^3.0.2",
+    "tslib": "^1.9.0",
+    "typesafe-actions": "^1.1.2",
+    "utility-types": "^1.0.0"
   },
   "build": {
     "appId": "io.soluble.course",
