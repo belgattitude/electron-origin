@@ -2,10 +2,10 @@ import {ADD_FILE, CONVERT_MEDIA, SET_MEDIA_INFO} from '../constants/actionTypes'
 import {MediaInfoInterface} from '@src/lib/FFProbe/MediaInfoInterface';
 
 export type AppState = {
-    file: string;
-    loading: boolean;
-    mediaInfo?: MediaInfoInterface;
-    conversion?: any;
+    readonly file: string;
+    readonly loading: boolean;
+    readonly mediaInfo?: MediaInfoInterface;
+    readonly conversion?: any;
 };
 
 const initialState: AppState = {

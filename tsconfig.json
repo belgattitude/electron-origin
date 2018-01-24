@@ -42,7 +42,6 @@
   ],
   "exclude": [
     "node_modules",
-    "src/js/**/*.spec.*",
-    "src/js/redux"
+    "src/js/**/*.spec.*"
   ]
 }
