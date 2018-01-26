@@ -15,7 +15,6 @@ import { SFCVideoPreviewConnected, SFCVideoInfoConnected } from '@src/connected'
 const mapDispatchToProps = (dispatch: any) => ({
     setFile: (file: string) => dispatch(mediaActions.setFile(file)),
     setMediaInfo: (mediaInfo: IMediaInfo) => dispatch(mediaActions.setMediaInfo(mediaInfo)),
-
 });
 
 const mapStateToProps = (state: any) => {

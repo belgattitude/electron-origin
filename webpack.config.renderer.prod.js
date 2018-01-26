@@ -12,6 +12,11 @@ import baseConfig from './webpack.config.base';
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const HtmlWebpackHarddiskPlugin = require('html-webpack-harddisk-plugin');
 
+const extractSass = new ExtractTextPlugin({
+    filename: "electron-app.css",
+});
+
+
 export default merge.smart(baseConfig, {
   devtool: 'source-map',
 
@@ -27,7 +32,11 @@ export default merge.smart(baseConfig, {
     modules: [
       path.join(__dirname, 'src'),
       'node_modules',
-    ]
+    ],
+    alias: {
+        // https://medium.com/@martin_hotell/type-safe-es2015-module-import-path-aliasing-with-webpack-typescript-and-jest-fe461347e010
+        '@src': path.resolve(__dirname, 'src/js/'),
+    }
   },
 
 
@@ -40,35 +49,20 @@ export default merge.smart(baseConfig, {
   module: {
     rules: [
       {
-        test: /\.(css)$/,
-        use: ExtractTextPlugin.extract({
-          publicPath: './',
-          use: {
-            loader: 'css-loader',
-            options: {
-              minimize: true,
-            }
-          },
-          fallback: 'style-loader',
-        })
+          test: /\.(scss)$/,
+          use: extractSass.extract({
+              fallback: 'style-loader',
+              //resolve-url-loader may be chained before sass-loader if necessary
+              use: [{
+                  loader: "css-loader" // translates CSS into CommonJS
+              }, {
+                  loader: "sass-loader" // compiles Sass to CSS
+              }]
+          })
       },
-      // Add SASS support
       {
-        test: /\.(scss)$/,
-        use: ExtractTextPlugin.extract({
-          use: [
-            {
-              loader: 'css-loader',
-              options: {
-                minimize: true,
-              }
-            },
-            {
-              loader: 'sass-loader'
-            }
-          ],
-          fallback: 'style-loader',
-        })
+          test: /\.css$/,
+          use: ['style-loader', 'css-loader']
       },
       // WOFF Font
       {
@@ -148,14 +142,14 @@ export default merge.smart(baseConfig, {
     new HtmlWebpackPlugin({
       alwaysWriteToDisk: true,
       hash: true,
-      title: 'My Awesome application',
-      myPageHeader: 'Hello World',
+      title: 'Video converter',
+      myPageHeader: 'Video converter',
       template: './public/index.html',
     }),
 
     new HtmlWebpackHarddiskPlugin(),
 
-    new ExtractTextPlugin('electron-app.css'),
+    extractSass,
 
     new BundleAnalyzerPlugin({
       analyzerMode: process.env.OPEN_ANALYZER === 'true' ? 'server' : 'disabled',
