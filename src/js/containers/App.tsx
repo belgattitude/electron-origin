@@ -1,35 +1,31 @@
 import React from 'react';
 import {hot} from 'react-hot-loader';
 import {Button, Reboot} from 'material-ui';
-import Typography from 'material-ui/Typography';
 import {connect} from 'react-redux';
 
-import {addFile, convertMedia, setMediaInfo} from '@src/actions';
-import Ffprobe from '@src/lib/FFProbe/FFProbe';
+import FFProbe from '@src/lib/FFProbe/FFProbe';
+import FFMpeg from '@src/lib/FFMpeg/FFMpeg';
 import {MediaInfoInterface} from '@src/lib/FFProbe/MediaInfoInterface';
-import MediaPreviewConnected from '@src/components/MediaPreviewConnected';
-import MediaInfoConnected from '@src/components/MediaInfoConnected';
-import ConverterConnected from '@src/components/ConverterConnected';
-import ElectronConfig from '@src/Config';
+import ElectronConfig from '@src/electron-config';
 import {ConvertOptionsInterface} from '@src/lib/FFMpeg/ConvertPropsInterface';
 
+import { IMediaInfo, mediaActions } from '@src/redux/media';
+import { SFCVideoPreviewConnected, SFCVideoInfoConnected } from '@src/connected';
+
 const mapDispatchToProps = (dispatch: any) => ({
-    addFile: (file: string) => dispatch(addFile(file)),
-    setMediaInfo: (mediaInfo: MediaInfoInterface) => dispatch(setMediaInfo(mediaInfo)),
-    convertMedia: (srcFile: string, destFile: string, options: ConvertOptionsInterface) => dispatch(
-        convertMedia(srcFile, destFile, options)
-    ),
+    setFile: (file: string) => dispatch(mediaActions.setFile(file)),
+    setMediaInfo: (mediaInfo: IMediaInfo) => dispatch(mediaActions.setMediaInfo(mediaInfo)),
+
 });
 
 const mapStateToProps = (state: any) => {
-    return { file: state.file };
+    return { filename: state.media.filename };
 };
 
 interface Props {
-    file: string;
-    addFile: (file: string) => {};
-    setMediaInfo: (mediaInfo: MediaInfoInterface) => {};
-    convertMedia: (srcFile: string, destFile: string, options: ConvertOptionsInterface) => {};
+    filename: string;
+    setFile: (file: string) => {};
+    setMediaInfo: (mediaInfo: IMediaInfo) => {};
 }
 
 class App extends React.Component<Props, {}> {
@@ -38,21 +34,21 @@ class App extends React.Component<Props, {}> {
         super(props);
     }
 
-    async loadVideoInfos() {
-        console.log('Converting video', this.props.file);
-        const filename = this.props.file;
-        const ffprobe = new Ffprobe(ElectronConfig.getFFBinariesConfig().ffprobe);
+    async loadVideoInfo() {
+        const filename = this.props.filename;
+        const ffprobe = new FFProbe(ElectronConfig.getFFBinariesConfig().ffprobe);
         const fileInfo = await ffprobe.getFileInfo(filename).then(
             (info: MediaInfoInterface) => {
-                this.props.setMediaInfo(info);
-                // For debug
-                // ffmpeg -i input.flv -vcodec mpeg4 -acodec aac output.mp4
-                const options: ConvertOptionsInterface = {
-                        videoCodec: 'vp9',
-                        audioCodec: 'aac',
+                // Convert MediaInfoInterface into mediaInfo
+                const mediaInfo: IMediaInfo = {
+                    filename: info.format.filename,
+                    duration: info.format.duration,
+                    size: info.format.size,
+                    frames: info.streams[0].nb_frames,
+                    ffprobe: info
                 };
-                const destFile = '/tmp/a_video.mkv';
-                this.props.convertMedia(filename, destFile, options);
+
+                this.props.setMediaInfo(mediaInfo);
             }
         ).catch((reason: any) => {
             console.log('failed', reason);
@@ -61,31 +57,49 @@ class App extends React.Component<Props, {}> {
         console.log('ITS DONE');
     }
 
-    addFile(file: string) {
-        this.props.addFile(file);
+    async convertVideo() {
+        const filename = this.props.filename;
+        // For debug
+        // ffmpeg -i input.flv -vcodec mpeg4 -acodec aac output.mp4
+        const options: ConvertOptionsInterface = {
+            videoCodec: 'vp9',
+            audioCodec: 'aac',
+        };
+        const destFile = '/tmp/a_video.mkv';
+        const srcFile = filename;
+        const ffmpeg = new FFMpeg(ElectronConfig.getFFBinariesConfig().ffmpeg);
+        const convert = ffmpeg.convert(srcFile, destFile, options).then(
+            () => {
+                console.log('CONVERTED !!!!');
+            }
+        ).catch((reason: any) => {
+            console.log('failed', reason);
+        });
+        console.log('convert', convert);
+    }
+
+
+    setFile(file: string) {
+        console.log('SETTING FILE', file);
+        this.props.setFile(file);
     }
 
     render() {
-        const text = 'Hello world';
         const otherFile = '/home/sebastien/Videos/Dance/Smoke/smoke_3_3.mp4';
         return (
             <div>
                 <Reboot />
-                <h3>Welcomes {text}</h3>
-                <Button raised={true} color="primary" onClick={() => { this.addFile(otherFile); }}>
-                    Change video
+                <Button raised={true} color="primary" onClick={() => { this.setFile(otherFile); }}>
+                    1. Load video
                 </Button>
-                <Typography component="p">
-                    Lizards are a widespread group of squamate reptiles, with over 6,000 species, ranging
-                    across all continents except Antarctica
-                </Typography>
-                <Button raised={true} onClick={() => { this.loadVideoInfos(); }}>
-                    Get video info
+                <Button raised={true} onClick={() => { this.loadVideoInfo(); }}>
+                    2. Get video info
                 </Button>
-
-                <MediaPreviewConnected />
-                <ConverterConnected />
-                <MediaInfoConnected/>
+                <Button raised={true} onClick={() => { this.convertVideo(); }}>
+                    3. Convert
+                </Button>
+                <SFCVideoPreviewConnected />
+                <SFCVideoInfoConnected/>
             </div>
         );
     }

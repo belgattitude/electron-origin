@@ -10,12 +10,6 @@ $ yarn install
 
 ## Develop
 
-For web development:
-
-```
-$ yarn start
-```
-
 For electron development:
 
 ```

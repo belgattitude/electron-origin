@@ -6,11 +6,11 @@ export interface SFCVideoPreviewProps {
 
 export const SFCVideoPreview: React.SFC<SFCVideoPreviewProps> = (props) => {
     const { filename } = props;
-    const localfile: string = 'file://' + filename;
+    const localFile: string = 'file://' + filename;
     return (
         <div>
-            <p>{localfile}</p>
-            <video controls={true} width="500" src={localfile} />
+            <p>{localFile}</p>
+            <video controls={true} width="500" src={localFile} />
         </div>
     );
 };

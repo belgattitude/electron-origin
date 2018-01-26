@@ -1,7 +1,7 @@
 import execa, {ExecaReturns, Options} from 'execa';
 import { MediaInfoInterface } from './MediaInfoInterface';
 
-class Ffprobe {
+class FFProbe {
 
     ffprobePath: string;
 
@@ -50,4 +50,4 @@ class Ffprobe {
 
 }
 
-export default Ffprobe;
+export default FFProbe;
