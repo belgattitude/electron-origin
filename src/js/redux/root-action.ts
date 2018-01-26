@@ -16,4 +16,3 @@ type ReactRouterAction = RouterAction | LocationChangeAction;
 export type RootAction =
     | AppAction
     | ReactRouterAction;
-

@@ -18,4 +18,3 @@ export const rootReducer = combineReducers<RootState, RootAction>({
     files: filesReducer,
     media: mediaReducer,
 });
-

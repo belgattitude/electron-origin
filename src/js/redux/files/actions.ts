@@ -6,8 +6,8 @@ import {
 export const addFile = createAction(ADD_FILE,
     (filename: string) => ({
         type: ADD_FILE,
-        payload: <IFile>{
-            filename: filename
-        }
+        payload: {
+            filename: filename,
+        } as IFile,
     })
 );

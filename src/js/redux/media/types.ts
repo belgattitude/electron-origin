@@ -9,5 +9,5 @@ export type IMediaInfo = {
     size: number;
     duration: number;
     frames: number;
-    ffprobe: MediaInfoInterface
+    ffprobe: MediaInfoInterface;
 };

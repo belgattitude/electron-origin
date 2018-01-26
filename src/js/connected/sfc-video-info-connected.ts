@@ -1,7 +1,6 @@
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
-
 import { RootState, Dispatch } from '@src/redux';
 import { SFCVideoInfo } from '@src/components';
 

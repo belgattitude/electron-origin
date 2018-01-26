@@ -6,15 +6,13 @@ import {
 export const setFile = createAction(SET_FILE,
     (filename: string) => ({
         type: SET_FILE,
-        payload: filename
+        payload: filename,
     })
 );
 
 export const setMediaInfo = createAction(SET_MEDIA_INFO,
     (mediaInfo: IMediaInfo) => ({
         type: SET_MEDIA_INFO,
-        payload: mediaInfo
+        payload: mediaInfo,
     })
 );
-
-

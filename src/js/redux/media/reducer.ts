@@ -9,7 +9,6 @@ export type MediaState = {
     readonly mediaInfo: IMediaInfo;
 };
 
-
 export const mediaReducer = combineReducers<MediaState, MediaAction>({
     filename: (state= '', action) => {
         console.log('REDUCER, FILENAME', action.payload);
@@ -21,7 +20,7 @@ export const mediaReducer = combineReducers<MediaState, MediaAction>({
                 return state;
         }
     },
-    mediaInfo: (state = <IMediaInfo>{}, action) => {
+    mediaInfo: (state = {} as IMediaInfo, action) => {
         console.log('REDUCER MEDIA INFO', action.payload);
         switch (action.type) {
             case getType(setMediaInfo):

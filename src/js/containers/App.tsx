@@ -44,7 +44,7 @@ class App extends React.Component<Props, {}> {
                     duration: info.format.duration,
                     size: info.format.size,
                     frames: info.streams[0].nb_frames,
-                    ffprobe: info
+                    ffprobe: info,
                 };
 
                 this.props.setMediaInfo(mediaInfo);
@@ -76,7 +76,6 @@ class App extends React.Component<Props, {}> {
         });
         console.log('convert', convert);
     }
-
 
     setFile(file: string) {
         console.log('SETTING FILE', file);
