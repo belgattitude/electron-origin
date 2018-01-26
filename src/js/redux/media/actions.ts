@@ -1,13 +1,20 @@
 import { createAction } from 'typesafe-actions';
-import {IMediaInfo} from '@src/redux/media/types';
+import {
+    SET_FILE, SET_MEDIA_INFO, IMediaInfo
+} from './types';
 
-export const mediaActions = {
-    setFile: createAction('SET_FILE', (filename: string) => ({
-        type: 'SET_FILE',
+export const setFile = createAction(SET_FILE,
+    (filename: string) => ({
+        type: SET_FILE,
         payload: filename
-    })),
-    setMediaInfo: createAction('SET_MEDIA_INFO', (mediaInfo: IMediaInfo) => ({
-        type: 'SET_MEDIA_INFO',
-        payload: mediaInfo,
-    })),
-};
+    })
+);
+
+export const setMediaInfo = createAction(SET_MEDIA_INFO,
+    (mediaInfo: IMediaInfo) => ({
+        type: SET_MEDIA_INFO,
+        payload: mediaInfo
+    })
+);
+
+

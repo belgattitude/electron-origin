@@ -1,5 +1,4 @@
 // RootActions
-
 import { RouterAction, LocationChangeAction } from 'react-router-redux';
 import { $call } from 'utility-types';
 
@@ -17,3 +16,4 @@ type ReactRouterAction = RouterAction | LocationChangeAction;
 export type RootAction =
     | AppAction
     | ReactRouterAction;
+

@@ -1,21 +1,21 @@
 import { combineReducers } from 'redux';
-import { routerReducer as router, RouterState } from 'react-router-redux';
+import { routerReducer, RouterState } from 'react-router-redux';
 
-import { reducer as filesReducer, State as FilesState } from '@src/redux/files/index';
-import { reducer as mediaReducer, State as MediaState } from '@src/redux/media/index';
-
+import { filesReducer, FilesState } from '@src/redux/files';
+import { mediaReducer, MediaState } from '@src/redux/media';
 
 interface StoreEnhancerState { }
 
 export interface RootState extends StoreEnhancerState {
     router: RouterState;
     files: FilesState;
-    mediaInfo: MediaState;
+    media: MediaState;
 }
 
-import { RootAction } from '@src/redux/index';
+import { RootAction } from '@src/redux';
 export const rootReducer = combineReducers<RootState, RootAction>({
-    router,
-    filesReducer,
-    mediaReducer,
+    router: routerReducer,
+    files: filesReducer,
+    media: mediaReducer,
 });
+

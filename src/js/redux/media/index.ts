@@ -1,5 +1,6 @@
 // public API
 
-export * from './actions';
-export * from './reducer';
 export * from './types';
+import * as mediaActions from './actions';
+export { mediaActions };
+export * from './reducer';
