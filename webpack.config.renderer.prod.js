@@ -24,7 +24,7 @@ export default merge.smart(baseConfig, {
 
   entry: [
     'babel-polyfill',
-    './src/electron/electron-renderer.tsx'
+    './src/js/index.tsx'
   ],
 
   resolve: {
@@ -55,7 +55,17 @@ export default merge.smart(baseConfig, {
               //resolve-url-loader may be chained before sass-loader if necessary
               use: [{
                   loader: "css-loader" // translates CSS into CommonJS
-              }, {
+              },{
+                  loader: 'postcss-loader', // Run post css actions
+                  options: {
+                      plugins: function () { // post css plugins, can be exported to postcss.config.js
+                          return [
+                              require('precss'),
+                              require('autoprefixer')
+                          ];
+                      }
+                  }
+              },{
                   loader: "sass-loader" // compiles Sass to CSS
               }]
           })
@@ -148,9 +158,12 @@ export default merge.smart(baseConfig, {
     }),
 
     new HtmlWebpackHarddiskPlugin(),
-
+    new webpack.ProvidePlugin({
+        $: "jquery", // Used for Bootstrap JavaScript components
+        jQuery: "jquery", // Used for Bootstrap JavaScript components
+        Popper: ['popper.js', 'default'] // Used for Bootstrap dropdown, popup and tooltip JavaScript components
+    }),
     extractSass,
-
     new BundleAnalyzerPlugin({
       analyzerMode: process.env.OPEN_ANALYZER === 'true' ? 'server' : 'disabled',
       openAnalyzer: process.env.OPEN_ANALYZER === 'true'
