@@ -1,6 +1,6 @@
 import React from 'react';
 import {hot} from 'react-hot-loader';
-import {Button, Reboot} from 'material-ui';
+import {Button} from 'material-ui';
 import {connect} from 'react-redux';
 
 import FFProbe from '@src/lib/FFProbe/FFProbe';
@@ -86,7 +86,6 @@ class App extends React.Component<Props, {}> {
         const otherFile = '/home/sebastien/Videos/Dance/Smoke/smoke_3_3.mp4';
         return (
             <div>
-                <Reboot />
                 <Button raised={true} color="primary" onClick={() => { this.setFile(otherFile); }}>
                     1. Load video
                 </Button>

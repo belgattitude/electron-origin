@@ -39,7 +39,6 @@ export default merge.smart(baseConfig, {
     }
   },
 
-
   output: {
     path: path.resolve(__dirname, 'dist/electron'),
     //publicPath: './',
