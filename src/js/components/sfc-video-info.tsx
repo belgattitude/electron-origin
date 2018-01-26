@@ -7,11 +7,11 @@ export interface SFCVideoInfoProps {
 
 export const SFCVideoInfo: React.SFC<SFCVideoInfoProps> = (props) => {
     const { mediaInfo } = props;
-    const info: string = JSON.stringify(mediaInfo);
+    const info: string = JSON.stringify(mediaInfo, null, 2);
     return (
         <div>
-            <pre style={{color: "white"}}>
-                Hello: {info}
+            <pre style={{color: "white", backgroundColor: "black"}}>
+                Info: {info}
             </pre>
         </div>
     );
