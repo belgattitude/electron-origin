@@ -1,7 +1,7 @@
 import React from 'react';
 import {hot} from 'react-hot-loader';
 import {ConnectedRouter} from 'react-router-redux';
-import {Route, Link} from 'react-router-dom';
+import {Route} from 'react-router-dom';
 import { history } from '@src/store';
 import Home from '@src/containers/home';
 import { VideoEditorConnected } from '@src/connected';
@@ -21,9 +21,6 @@ class App extends React.Component<object, object> {
                     <div>
                         <header>
                             <StyledAppMenu title="Video editor" />
-                            <Link to="/">Home</Link>
-                            <Link to="/video-editor">Video editor</Link>
-                            <Link to="/no-match">InvalidRoute</Link>
                         </header>
                         <main>
                             <Switch>

@@ -46,7 +46,13 @@ export const AppMenu: React.SFC<IAppMenuProps & WithStyles<ComponentClassNames>>
                     <Typography type="title" color="inherit" className={classes.flex}>
                         {props.title}
                     </Typography>
+                    <Link to="/">Home</Link>
+                    <Link to="/no-match">InvalidRoute</Link>
+
                     <Link to="/video-editor">Video editor</Link>
+                    <Button component={props => <Link {...props} to="/" />} color="inherit">Home</Button>
+                    <Button component={props => <Link {...props} to="/video-editor" />} color="inherit">Video Editor</Button>
+                    <Button component={props => <Link {...props} to="/no-match"/>} color="inherit">404</Button>
                     <Button color="inherit">About</Button>
                 </Toolbar>
             </AppBar>
