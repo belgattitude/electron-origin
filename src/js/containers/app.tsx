@@ -6,13 +6,11 @@ import { history } from '@src/store';
 import Home from '@src/containers/home';
 import { VideoEditorConnected } from '@src/connected';
 import {Switch} from 'react-router';
-
-
+import StyledAppMenu from './app-menu';
 
 const NoMatch = () => (
     <h1 style={{color:'red'}}>Page not found!</h1>
 );
-
 
 class App extends React.Component<object, object> {
     public render(): React.ReactElement<App> {
@@ -22,6 +20,7 @@ class App extends React.Component<object, object> {
                 <ConnectedRouter history={history}>
                     <div>
                         <header>
+                            <StyledAppMenu title="cool" />
                             <Link to="/">Home</Link>
                             <Link to="/video-editor">Video editor</Link>
                             <Link to="/no-match">InvalidRoute</Link>
