@@ -20,7 +20,7 @@ class App extends React.Component<object, object> {
                 <ConnectedRouter history={history}>
                     <div>
                         <header>
-                            <StyledAppMenu title="cool" />
+                            <StyledAppMenu title="Video editor" />
                             <Link to="/">Home</Link>
                             <Link to="/video-editor">Video editor</Link>
                             <Link to="/no-match">InvalidRoute</Link>

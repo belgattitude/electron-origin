@@ -10,8 +10,9 @@ import {
 } from "material-ui";
 
 import {Menu as MenuIcon} from 'material-ui-icons';
-
 import withStyles from "material-ui/styles/withStyles";
+import {Link} from 'react-router-dom';
+
 // import {TypographyProps} from 'material-ui/Typography';
 
 
@@ -45,6 +46,7 @@ export const AppMenu: React.SFC<IAppMenuProps & WithStyles<ComponentClassNames>>
                     <Typography type="title" color="inherit" className={classes.flex}>
                         {props.title}
                     </Typography>
+                    <Link to="/video-editor">Video editor</Link>
                     <Button color="inherit">About</Button>
                 </Toolbar>
             </AppBar>
