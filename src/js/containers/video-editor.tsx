@@ -10,10 +10,12 @@ import {ConvertOptionsInterface} from '@src/lib/FFMpeg/ConvertPropsInterface';
 
 import { IMediaInfo, mediaActions } from '@src/redux/media';
 import { SFCVideoPreviewConnected, SFCVideoInfoConnected } from '@src/connected';
+import { push } from 'react-router-redux'
 
 const mapDispatchToProps = (dispatch: any) => ({
     setFile: (file: string) => dispatch(mediaActions.setFile(file)),
     setMediaInfo: (mediaInfo: IMediaInfo) => dispatch(mediaActions.setMediaInfo(mediaInfo)),
+    backToHomePage: () => dispatch(push('/'))
 });
 
 const mapStateToProps = (state: any) => {
@@ -24,6 +26,7 @@ interface Props {
     filename: string;
     setFile: (file: string) => {};
     setMediaInfo: (mediaInfo: IMediaInfo) => {};
+    backToHomePage: () => {};
 }
 
 class VideoEditor extends React.Component<Props, {}> {
@@ -76,6 +79,10 @@ class VideoEditor extends React.Component<Props, {}> {
         console.log('convert', convert);
     }
 
+    backToHomePage() {
+        this.props.backToHomePage();
+    }
+
     setFile(file: string) {
         console.log('SETTING FILE', file);
         this.props.setFile(file);
@@ -94,6 +101,10 @@ class VideoEditor extends React.Component<Props, {}> {
                 <Button raised={true} onClick={() => { this.convertVideo(); }}>
                     3. Convert
                 </Button>
+                <Button raised={true} onClick={() => { this.backToHomePage(); }}>
+                    4. Back home
+                </Button>
+
                 <SFCVideoPreviewConnected />
                 <SFCVideoInfoConnected/>
             </div>
