@@ -1,17 +1,17 @@
 import React from 'react';
 import { render } from 'react-dom';
 import { Provider as ReduxProvider } from 'react-redux';
-import store from './store';
-import createHistory from 'history/createBrowserHistory';
-import App from './containers/App';
-import '../style/style.scss';
+// import { ConnectedRouter } from 'react-router-redux'
 
-const history = createHistory();
+import store from './store';
+import App from './containers/app';
+
+import '../style/style.scss';
 
 const renderApp = (Component: any, elementId: string) => {
     render(
         <ReduxProvider store={store}>
-            <Component history={history}/>
+                <Component/>
         </ReduxProvider>,
         document.getElementById(elementId)
     );

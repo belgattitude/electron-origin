@@ -1,5 +1,4 @@
 import React from 'react';
-import {hot} from 'react-hot-loader';
 import {Button} from 'material-ui';
 import {connect} from 'react-redux';
 
@@ -27,7 +26,7 @@ interface Props {
     setMediaInfo: (mediaInfo: IMediaInfo) => {};
 }
 
-class App extends React.Component<Props, {}> {
+class VideoEditor extends React.Component<Props, {}> {
 
     constructor(props: Props) {
         super(props);
@@ -102,5 +101,5 @@ class App extends React.Component<Props, {}> {
     }
 
 }
-const ConnectedApp = connect(mapStateToProps, mapDispatchToProps)(App);
-export default hot(module)(ConnectedApp);
+const ConnectedVideoEditor = connect(mapStateToProps, mapDispatchToProps)(VideoEditor);
+export default ConnectedVideoEditor;

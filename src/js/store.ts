@@ -1,26 +1,40 @@
-import { createStore, compose } from 'redux';
+import {createStore, compose, applyMiddleware} from 'redux';
 import { rootReducer, RootState } from '@src/redux';
+import { routerMiddleware } from 'react-router-redux';
+//import thunk from 'redux-thunk'
+import createHistory from 'history/createBrowserHistory';
 
-const composeEnhancers = (
+export const history = createHistory();
+//export const initialState  = {};
+
+const composeEnhancers =
     process.env.NODE_ENV === 'development' &&
-    window && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__
-) || compose;
+    typeof window === 'object' &&
+    window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ ?
+        window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__({
+            // Specify extension’s options like name, actionsBlacklist, actionsCreators, serialize...
+        }) : compose;
 
 function configureStore(initialState?: RootState) {
+
     // configure middlewares
-    /*
     const middlewares = [
-        createEpicMiddleware(rootEpic),
-    ];*/
+        // createEpicMiddleware(rootEpic),
+  //      thunk,
+        routerMiddleware(history),
+    ];
+
     // compose enhancers
-    const enhancer = composeEnhancers(
-        // applyMiddleware(...middlewares)
+    const enhancers = composeEnhancers(
+        applyMiddleware(...middlewares)
+
     );
+
     // create store
     return createStore(
         rootReducer,
         initialState!,
-        enhancer
+        enhancers
     );
 }
 
