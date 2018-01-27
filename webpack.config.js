@@ -113,8 +113,13 @@ module.exports = {
     contentBase: path.resolve(__dirname, "build"),
     //host: 'localhost',
     port: 3000,
-    //historyApiFallback: true,
-    headers: { 'Access-Control-Allow-Origin': '*' }
+//    historyApiFallback: true,
+      //historyApiFallback: {disableDotRule: true},
+
+    headers: {
+        'Access-Control-Allow-Origin': '*',
+        //'Content-Security-Policy': "default-src=*; script-src 'unsafe-inline' 'unsafe-eval'; style-src 'unsafe-inline' 'unsafe-eval';"
+    }
     //hot: true
   }
 };

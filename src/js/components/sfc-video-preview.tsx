@@ -11,6 +11,7 @@ export const SFCVideoPreview: React.SFC<SFCVideoPreviewProps> = (props) => {
         <div>
             <p>{localFile}</p>
             <video controls={true} width="500" src={localFile} />
+            <video controls={true} width="500" src={localFile} />
         </div>
     );
 };
