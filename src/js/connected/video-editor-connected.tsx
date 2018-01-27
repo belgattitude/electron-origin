@@ -3,13 +3,14 @@ import {Button} from 'material-ui';
 import {connect} from 'react-redux';
 
 import FFProbe from '@src/lib/FFProbe/FFProbe';
-import FFMpeg from '@src/lib/FFMpeg/FFMpeg';
 import {MediaInfoInterface} from '@src/lib/FFProbe/MediaInfoInterface';
-import ElectronConfig from '@src/electron-config';
+import FFMpeg from '@src/lib/FFMpeg/FFMpeg';
 import {ConvertOptionsInterface} from '@src/lib/FFMpeg/ConvertPropsInterface';
 
-import { IMediaInfo, mediaActions } from '@src/redux/media';
-import { SFCVideoPreviewConnected, SFCVideoInfoConnected } from '@src/connected';
+import ElectronConfig from '@src/electron-config';
+
+import { IMediaInfo, mediaActions } from '@src/redux/media/index';
+import { SFCVideoPreviewConnected, SFCVideoInfoConnected } from '@src/connected/index';
 import { push } from 'react-router-redux'
 
 const mapDispatchToProps = (dispatch: any) => ({
@@ -112,5 +113,5 @@ class VideoEditor extends React.Component<Props, {}> {
     }
 
 }
-const ConnectedVideoEditor = connect(mapStateToProps, mapDispatchToProps)(VideoEditor);
-export default ConnectedVideoEditor;
+
+export const VideoEditorConnected = connect(mapStateToProps, mapDispatchToProps)(VideoEditor);
