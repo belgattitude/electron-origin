@@ -31,10 +31,15 @@ const styles = {
 
 interface IAppMenuProps {
     title: string;
+    location: string;
 }
 
 export const AppMenu: React.SFC<IAppMenuProps & WithStyles<ComponentClassNames>> = (props) => {
     const {classes} = props;
+    const activeStyle = {
+        fontWeight: 'bold',
+        color: 'red',
+    };
     return (
         <div className={classes.root}>
             <AppBar position="fixed">
@@ -45,13 +50,13 @@ export const AppMenu: React.SFC<IAppMenuProps & WithStyles<ComponentClassNames>>
                     <Typography type="title" color="inherit" className={classes.flex}>
                         {props.title}
                     </Typography>
-                    <Button component={btnProps => <NavLink {...btnProps} to="/" />} color="inherit">
+                    <Button component={btnProps => <NavLink {...btnProps} to="/" activeStyle={{activeStyle}} />} color="inherit">
                         Home
                     </Button>
-                    <Button component={btnProps => <NavLink {...btnProps} to="/video-editor" />} color="inherit">
+                    <Button component={btnProps => <NavLink {...btnProps} to="/video-editor" activeStyle={{activeStyle}} />} color="inherit">
                         Video Editor
                     </Button>
-                    <Button component={btnProps => <NavLink {...btnProps} to="/no-match"/>} color="inherit">
+                    <Button component={btnProps => <NavLink {...btnProps} to="/no-match" activeStyle={{activeStyle}}/>} color="inherit">
                         404
                     </Button>
                     <Button color="inherit">About</Button>
