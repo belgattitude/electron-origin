@@ -12,6 +12,7 @@ import {
 import {Menu as MenuIcon} from 'material-ui-icons';
 import withStyles from 'material-ui/styles/withStyles';
 import {NavLink} from 'react-router-dom';
+import {RouteComponentProps} from 'react-router';
 
 // import {TypographyProps} from 'material-ui/Typography';
 
@@ -31,15 +32,12 @@ const styles = {
 
 interface IAppMenuProps {
     title: string;
-    location: string;
 }
 
-export const AppMenu: React.SFC<IAppMenuProps & WithStyles<ComponentClassNames>> = (props) => {
+export const AppMenu: React.SFC<IAppMenuProps & RouteComponentProps<{}> & WithStyles<ComponentClassNames>> = (props) => {
     const {classes} = props;
-    const activeStyle = {
-        fontWeight: 'bold',
-        color: 'red',
-    };
+    const location = props.location;
+
     return (
         <div className={classes.root}>
             <AppBar position="fixed">
@@ -48,15 +46,15 @@ export const AppMenu: React.SFC<IAppMenuProps & WithStyles<ComponentClassNames>>
                          <MenuIcon/>
                     </IconButton>
                     <Typography type="title" color="inherit" className={classes.flex}>
-                        {props.title}
+                        {props.title} {location.pathname}
                     </Typography>
-                    <Button component={btnProps => <NavLink {...btnProps} to="/" activeStyle={{activeStyle}} />} color="inherit">
+                    <Button component={btnProps => <NavLink {...btnProps} to="/" />} color="inherit" raised={true}>
                         Home
                     </Button>
-                    <Button component={btnProps => <NavLink {...btnProps} to="/video-editor" activeStyle={{activeStyle}} />} color="inherit">
+                    <Button component={btnProps => <NavLink {...btnProps} to="/video-editor" />} color="inherit">
                         Video Editor
                     </Button>
-                    <Button component={btnProps => <NavLink {...btnProps} to="/no-match" activeStyle={{activeStyle}}/>} color="inherit">
+                    <Button component={btnProps => <NavLink {...btnProps} to="/no-match" />} color="inherit">
                         404
                     </Button>
                     <Button color="inherit">About</Button>
