@@ -9,7 +9,7 @@ import {Switch} from 'react-router';
 import StyledAppMenu from './app-menu';
 
 const NoMatch = () => (
-    <h1 style={{color:'red'}}>Page not found!</h1>
+    <h1 style={{color: 'red'}}>Page not found!</h1>
 );
 
 class App extends React.Component<object, object> {
@@ -24,8 +24,8 @@ class App extends React.Component<object, object> {
                         </header>
                         <main>
                             <Switch>
-                                <Route exact path="/" component={Home}/>
-                                <Route exact path="/video-editor" component={VideoEditorConnected}/>
+                                <Route exact={true} path="/" component={Home}/>
+                                <Route exact={true} path="/video-editor" component={VideoEditorConnected}/>
                                 <Route component={NoMatch}/>
                             </Switch>
                         </main>

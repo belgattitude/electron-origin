@@ -7,11 +7,26 @@ export interface SFCVideoPreviewProps {
 export const SFCVideoPreview: React.SFC<SFCVideoPreviewProps> = (props) => {
     const { filename } = props;
     const localFile: string = 'file://' + filename;
+    const itemStyle = {
+        minWidth: '50%',
+    };
+    const videoStyle = {
+        width: '100%',
+    };
     return (
         <div>
             <p>{localFile}</p>
-            <video controls={true} width="500" src={localFile} />
-            <video controls={true} width="500" src={localFile} />
+            <div style={{ display: 'flex', flexWrap: 'wrap', border: '1px solid black'}}>
+                <div style={itemStyle}>
+                    <video controls={true} style={videoStyle} src={localFile} />
+                </div>
+                <div style={itemStyle}>
+                    <video controls={true} style={videoStyle} src={localFile} />
+                </div>
+                <div style={itemStyle}>
+                    <video controls={true} style={videoStyle} src={localFile} />
+                </div>
+            </div>
         </div>
     );
 };

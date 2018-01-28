@@ -7,7 +7,7 @@ import store from './store';
 import App from './containers/app';
 
 // global styles
-import 'typeface-roboto'
+import 'typeface-roboto';
 import '../style/style.scss';
 
 const renderApp = (Component: any, elementId: string) => {

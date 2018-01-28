@@ -11,12 +11,12 @@ import ElectronConfig from '@src/electron-config';
 
 import { IMediaInfo, mediaActions } from '@src/redux/media/index';
 import { SFCVideoPreviewConnected, SFCVideoInfoConnected } from '@src/connected/index';
-import { push } from 'react-router-redux'
+import { push } from 'react-router-redux';
 
 const mapDispatchToProps = (dispatch: any) => ({
     setFile: (file: string) => dispatch(mediaActions.setFile(file)),
     setMediaInfo: (mediaInfo: IMediaInfo) => dispatch(mediaActions.setMediaInfo(mediaInfo)),
-    backToHomePage: () => dispatch(push('/'))
+    backToHomePage: () => dispatch(push('/')),
 });
 
 const mapStateToProps = (state: any) => {

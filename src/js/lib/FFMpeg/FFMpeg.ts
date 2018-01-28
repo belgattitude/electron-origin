@@ -15,13 +15,16 @@ class FFMpeg {
         const process = execa(
             this.getFFMpegPath(),
             [
+                '-hwaccel', 'auto',
                 '-i', srcFile,
+
                 '-vcodec', options.videoCodec,
                 '-acodec', options.audioCodec,
                 '-y', // to overwrite the file if it exists
                 // For debug, take only 8 seconds.750(msec)
                 '-ss',  '00:02:00.0',
-                '-t',  '00:02:48.750',
+                '-t',  '00:02:18.750',
+
                 destFile,
             ],
             {stripEof: false});

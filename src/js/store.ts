@@ -1,11 +1,10 @@
 import {createStore, compose, applyMiddleware} from 'redux';
 import { rootReducer, RootState } from '@src/redux';
 import { routerMiddleware } from 'react-router-redux';
-//import thunk from 'redux-thunk'
 import createHistory from 'history/createBrowserHistory';
 
 export const history = createHistory();
-//export const initialState  = {};
+// export const initialState  = {};
 
 const composeEnhancers =
     process.env.NODE_ENV === 'development' &&

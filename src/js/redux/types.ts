@@ -10,5 +10,5 @@ export type Reducer = ReduxReducer<RootState, RootAction>;
 
 export type Api = {};
 
-//import { ThunkAction as ReduxThunkAction } from 'redux-thunk';
-//export type ThunkAction<T> = ReduxThunkAction<T, RootState, Api>;
+// import { ThunkAction as ReduxThunkAction } from 'redux-thunk';
+// export type ThunkAction<T> = ReduxThunkAction<T, RootState, Api>;
