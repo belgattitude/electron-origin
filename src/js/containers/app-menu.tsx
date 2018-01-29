@@ -34,29 +34,54 @@ interface IAppMenuProps {
     title: string;
 }
 
+export interface MenuLinkProps {
+    path: string;
+    label: string;
+    raised: boolean;
+}
+
 export const AppMenu: React.SFC<IAppMenuProps & RouteComponentProps<{}> & WithStyles<ComponentClassNames>> = (props) => {
+
     const {classes} = props;
-    const location = props.location;
+    const currentLocation = props.location;
+    console.log('MENUPROPS', props);
+
+    const menuItems: MenuLinkProps[]  = [
+        {path: '/', label: 'Home'},
+        {path: '/video-editor', label: 'Video Editor'},
+        {path: '/no-match', label: '404'},
+    ].map((props: MenuLinkProps) => {
+        return {...props, raised: (currentLocation.pathname == props.path)}
+    });
+
+    console.log('menuItems', menuItems);
+
+    const LinkItem = (props: MenuLinkProps) => {
+        console.log('LINKITEM', props);
+        const raised: boolean = props.raised == true;
+        return (
+            <Button component={
+                btnProps => <NavLink {...btnProps} to={props.path} />
+            } color="inherit" raised={raised}>
+                {props.label}
+            </Button>
+        )
+    };
 
     return (
         <div className={classes.root}>
             <AppBar position="fixed">
                 <Toolbar>
                     <IconButton className={classes.menuButton} color="inherit" aria-label="Menu">
-                         <MenuIcon/>
+                        <MenuIcon/>
                     </IconButton>
                     <Typography type="title" color="inherit" className={classes.flex}>
-                        {props.title} {location.pathname}
+                        {props.title} {currentLocation.pathname}
                     </Typography>
-                    <Button component={btnProps => <NavLink {...btnProps} to="/" />} color="inherit" raised={true}>
-                        Home
-                    </Button>
-                    <Button component={btnProps => <NavLink {...btnProps} to="/video-editor" />} color="inherit">
-                        Video Editor
-                    </Button>
-                    <Button component={btnProps => <NavLink {...btnProps} to="/no-match" />} color="inherit">
-                        404
-                    </Button>
+                    {menuItems.map((props) => { return (
+                            <LinkItem key={props.path} path={props.path} label={props.label} raised={props.raised} />
+                        )}
+                    )}
                     <Button color="inherit">About</Button>
                 </Toolbar>
             </AppBar>
