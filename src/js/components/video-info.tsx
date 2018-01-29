@@ -5,7 +5,7 @@ export interface SFCVideoInfoProps {
     mediaInfo: IMediaInfo;
 }
 
-export const SFCVideoInfo: React.SFC<SFCVideoInfoProps> = (props) => {
+export const VideoInfo: React.SFC<SFCVideoInfoProps> = (props) => {
     const { mediaInfo } = props;
     const info: string = JSON.stringify(mediaInfo, null, 2);
     return (

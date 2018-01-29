@@ -10,7 +10,7 @@ import {ConvertOptionsInterface} from '@src/lib/FFMpeg/ConvertPropsInterface';
 import ElectronConfig from '@src/electron-config';
 
 import { IMediaInfo, mediaActions } from '@src/redux/media/index';
-import { SFCVideoPreviewConnected, SFCVideoInfoConnected } from '@src/connected/index';
+import { VideoPreviewConnected, VideoInfoConnected } from '@src/connected/index';
 import { push } from 'react-router-redux';
 
 const mapDispatchToProps = (dispatch: any) => ({
@@ -106,8 +106,8 @@ class VideoEditor extends React.Component<Props, {}> {
                     4. Back home
                 </Button>
 
-                <SFCVideoPreviewConnected />
-                <SFCVideoInfoConnected/>
+                <VideoPreviewConnected />
+                <VideoInfoConnected/>
             </div>
         );
     }

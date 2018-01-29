@@ -4,7 +4,7 @@ export interface SFCVideoPreviewProps {
     filename: string;
 }
 
-export const SFCVideoPreview: React.SFC<SFCVideoPreviewProps> = (props) => {
+export const VideoPreview: React.SFC<SFCVideoPreviewProps> = (props) => {
     const { filename } = props;
     const localFile: string = 'file://' + filename;
     const itemStyle = {

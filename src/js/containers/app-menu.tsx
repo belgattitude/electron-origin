@@ -30,6 +30,7 @@ const styles = {
     },
 };
 
+
 interface IAppMenuProps {
     title: string;
 }
@@ -37,28 +38,25 @@ interface IAppMenuProps {
 export interface MenuLinkProps {
     path: string;
     label: string;
-    raised: boolean;
+    active: boolean;
 }
 
-export const AppMenu: React.SFC<IAppMenuProps & RouteComponentProps<{}> & WithStyles<ComponentClassNames>> = (props) => {
+export type AppMenuProps = IAppMenuProps & RouteComponentProps<{}> & WithStyles<ComponentClassNames>;
+export const AppMenu: React.SFC<AppMenuProps> = (props) => {
 
     const {classes} = props;
-    const currentLocation = props.location;
-    console.log('MENUPROPS', props);
+    const currentPath = props.location.pathname;
 
     const menuItems: MenuLinkProps[]  = [
         {path: '/', label: 'Home'},
         {path: '/video-editor', label: 'Video Editor'},
         {path: '/no-match', label: '404'},
     ].map((props: MenuLinkProps) => {
-        return {...props, raised: (currentLocation.pathname == props.path)}
+        return {...props, active: (currentPath == props.path)}
     });
 
-    console.log('menuItems', menuItems);
-
     const LinkItem = (props: MenuLinkProps) => {
-        console.log('LINKITEM', props);
-        const raised: boolean = props.raised == true;
+        const raised: boolean = props.active == true;
         return (
             <Button component={
                 btnProps => <NavLink {...btnProps} to={props.path} />
@@ -76,10 +74,10 @@ export const AppMenu: React.SFC<IAppMenuProps & RouteComponentProps<{}> & WithSt
                         <MenuIcon/>
                     </IconButton>
                     <Typography type="title" color="inherit" className={classes.flex}>
-                        {props.title} {currentLocation.pathname}
+                        {props.title}
                     </Typography>
-                    {menuItems.map((props) => { return (
-                            <LinkItem key={props.path} path={props.path} label={props.label} raised={props.raised} />
+                    {menuItems.map(({path, label, active}) => { return (
+                            <LinkItem key={path} path={path} label={label} active={active} />
                         )}
                     )}
                     <Button color="inherit">About</Button>
