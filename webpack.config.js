@@ -31,7 +31,7 @@ module.exports = {
   output: {
     path: path.resolve(__dirname, 'build'),
     filename: '[name].js',
-    //publicPath: '/'
+    publicPath: '/'
   },
   module: {
     rules: [
@@ -113,7 +113,7 @@ module.exports = {
     contentBase: path.resolve(__dirname, "build"),
     //host: 'localhost',
     port: 3000,
-//    historyApiFallback: true,
+    historyApiFallback: true,
       //historyApiFallback: {disableDotRule: true},
 
     headers: {
