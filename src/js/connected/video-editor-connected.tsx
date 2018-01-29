@@ -105,7 +105,6 @@ class VideoEditor extends React.Component<Props, {}> {
                 <Button raised={true} onClick={() => { this.backToHomePage(); }}>
                     4. Back home
                 </Button>
-
                 <VideoPreviewConnected />
                 <VideoInfoConnected/>
             </div>
