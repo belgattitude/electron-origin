@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 
-import { RootState } from '@src/redux';
-import StyledAppMenu  from './app-menu';
+import { RootState } from '@src/redux/index';
+import { AppBar }  from '@src/components';
 import {withRouter} from 'react-router';
 
 const mapStateToProps = (state: RootState) => ({
@@ -11,5 +11,5 @@ const mapStateToProps = (state: RootState) => ({
 const mapDispatchToProps = (dispatch: any) => ({
     // dispatch
 });
-export const StyledAppMenuConnected =
-    withRouter(connect(mapStateToProps, mapDispatchToProps)(StyledAppMenu));
+export const AppBarConnected =
+    withRouter(connect(mapStateToProps, mapDispatchToProps)(AppBar));
