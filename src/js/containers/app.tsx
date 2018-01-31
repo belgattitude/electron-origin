@@ -7,7 +7,7 @@ import Home from '@src/containers/home';
 import { VideoEditorConnected } from '@src/connected';
 import {Switch} from 'react-router';
 import { AppBarConnected } from '@src/connected/app-bar-connected';
-import Canva from '@src/containers/canva';
+import VideoCanvas from '@src/containers/video-canvas';
 
 const NoMatch = () => (
     <h1 style={{color: 'red'}}>Page not found!</h1>
@@ -27,7 +27,7 @@ class App extends React.Component<object, object> {
                             <Switch>
                                 <Route exact={true} path="/" component={Home}/>
                                 <Route exact={true} path="/video-editor" component={VideoEditorConnected}/>
-                                <Route exact={true} path="/canva" component={Canva}/>
+                                <Route exact={true} path="/video-canvas" component={VideoCanvas}/>
                                 <Route component={NoMatch}/>
                             </Switch>
                         </main>

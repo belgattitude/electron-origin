@@ -52,7 +52,7 @@ export const AppBarComponent: React.SFC<AppMenuProps> = (props) => {
     const menuItems: MenuLinkProps[]  = [
         {path: '/', label: 'Home'},
         {path: '/video-editor', label: 'Video Editor'},
-        {path: '/canva', label: 'Canva'},
+        {path: '/video-canvas', label: 'Video Canvas'},
         {path: '/no-match', label: '404'},
     ].map((props: MenuLinkProps) => {
         return {...props, active: (currentPath == props.path)}
