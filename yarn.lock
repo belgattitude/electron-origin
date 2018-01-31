@@ -64,9 +64,9 @@
   version "9.4.0"
   resolved "https://registry.yarnpkg.com/@types/node/-/node-9.4.0.tgz#b85a0bcf1e1cc84eb4901b7e96966aedc6f078d1"
 
-"@types/node@^7.0.18":
-  version "7.0.52"
-  resolved "https://registry.yarnpkg.com/@types/node/-/node-7.0.52.tgz#8990d3350375542b0c21a83cd0331e6a8fc86716"
+"@types/node@^8.0.24":
+  version "8.5.9"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-8.5.9.tgz#7155cfb4ae405bca4dd8df1a214c339e939109bf"
 
 "@types/react-dom@^16.0.3":
   version "16.0.3"
@@ -2959,11 +2959,11 @@ electron-window-state@^4.1.1:
     jsonfile "^2.2.3"
     mkdirp "^0.5.1"
 
-electron@1.7.11:
-  version "1.7.11"
-  resolved "https://registry.yarnpkg.com/electron/-/electron-1.7.11.tgz#993b6aa79e0e79a7cfcc369f4c813fbd9a0b08d9"
+electron@1.8.2-beta.4:
+  version "1.8.2-beta.4"
+  resolved "https://registry.yarnpkg.com/electron/-/electron-1.8.2-beta.4.tgz#1836b204eeace9dc77062ed4820fdbc6cbd9a195"
   dependencies:
-    "@types/node" "^7.0.18"
+    "@types/node" "^8.0.24"
     electron-download "^3.0.1"
     extract-zip "^1.0.3"
 
@@ -5879,7 +5879,7 @@ material-ui-icons@^1.0.0-beta.17:
   dependencies:
     recompose "^0.26.0"
 
-material-ui@^1.0.0-beta.31:
+"material-ui@^1.0.0-beta.31 ":
   version "1.0.0-beta.31"
   resolved "https://registry.yarnpkg.com/material-ui/-/material-ui-1.0.0-beta.31.tgz#5d832d0c4d9eceea2cbf1647dc7f57a4031f0243"
   dependencies:
