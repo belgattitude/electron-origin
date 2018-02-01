@@ -14,27 +14,9 @@ class VideoCanvas extends React.Component<{}, {}> {
 
     margin: number = 5;
 
-    typedRefs?: {
-        video: HTMLVideoElement,
-        canvas: HTMLCanvasElement,
-        image: HTMLImageElement
-    }
-
-
-
-    /*
-    get videoElement(): HTMLVideoElement {
-        return this.refs.video as HTMLVideoElement;
-    };
-
-    get canvasElement(): HTMLCanvasElement {
-        return this.refs.canvas as HTMLCanvasElement;
-    }
-
-    get imageElement(): HTMLImageElement {
-        return this.refs.image as HTMLImageElement;
-    }
-    */
+    videoRef = () => { return this.refs.video as HTMLVideoElement };
+    canvasRef = () => { return this.refs.canvas as HTMLCanvasElement };
+    imageRef = () => { return this.refs.image as HTMLImageElement };
 
     constructor(props: {}) {
         super(props);
@@ -43,35 +25,41 @@ class VideoCanvas extends React.Component<{}, {}> {
             height: window.innerHeight - this.margin,
             title: 'Hello world'
         }
+        this.updateDimensions = this.updateDimensions.bind(this);
+    }
+
+    animate(): void {
+
+    }
+
+    renderVideo(): void {
+
+    }
+
+    initAnimation(): void {
+        window.addEventListener("resize", this.updateDimensions, false);
+        window.addEventListener('orientationchange', this.updateDimensions, false);
+
     }
 
 
     componentDidMount() {
 
-        if (this.typedRefs === undefined) {
-            return;
-        }
-
-        window.addEventListener("resize", () => {
-            this.updateDimensions();
-        });
+        this.initAnimation()
 
 
-        /*
-        const canvas = this.canvasElement;
-        const img = this.imageElement;
-        const video = this.videoElement;
-        */
-        const canvas = this.typedRefs.canvas;
-        const img = this.typedRefs.image;
-        const video = this.typedRefs.video;
+        const canvas = this.canvasRef();
+        const img = this.imageRef();
+        const video = this.videoRef();
 
         const ctx = canvas.getContext("2d");
+        if (ctx === null) return;
 
         scaleCanvas(canvas, ctx, this.state.width, this.state.height);
 
-        if (ctx === null) return;
-
+        video.addEventListener('onmetadataloaded', (ev: Event) =>  {
+            (ev.target as HTMLVideoElement).currentTime = 40;
+        });
 
         img.onload = () => {
             ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
@@ -82,7 +70,7 @@ class VideoCanvas extends React.Component<{}, {}> {
             ctx.font = "40px Roboto"
             ctx.fillText(this.state.title, 210, 75)
         }
-
+/*
         const draw = (): void => {
 
             if (video.paused || video.ended) {
@@ -96,39 +84,48 @@ class VideoCanvas extends React.Component<{}, {}> {
 
             requestAnimationFrame(draw);
         };
-
+*/
 
 
         const drawScaled = (): void => {
+
+            video.playbackRate = 0.3;
 
             if (video.paused || video.ended) {
                 return;
             }
 
+            const ratio = video.videoWidth / video.videoHeight;
+
+            //console.log('RATIO', ratio);
 
             const hdpiRatio = window.devicePixelRatio || 1;
             //ctx.drawImage(video, 0, 0, this.state.width, this.state.height);
-            ctx.drawImage(video, 0, 0, video.videoWidth, video.videoHeight,
-                0, 0, canvas.width / hdpiRatio, canvas.height / hdpiRatio);
+            ctx.drawImage(video, 0, 0, video.videoWidth, (video.videoHeight / ratio),
+                0, 200, canvas.width / hdpiRatio, (canvas.height / ratio) / hdpiRatio);
 
-            requestAnimationFrame(draw);
+            requestAnimationFrame(drawScaled);
         };
 
 
-        video.addEventListener("play", drawScaled, false);
 
+//        video.addEventListener("play", drawScaled, false);
+
+        video.play();
+
+        ctx.drawImage(video, 0, 0);
     }
 
     componentWillUnmount() {
-        window.removeEventListener("resize", this.updateDimensions.bind(this));
-        if (this.typedRefs) {
-            delete this.typedRefs.canvas;
-            delete this.typedRefs.image;
-            if (!this.typedRefs.video.paused) {
-                this.typedRefs.video.pause();
+        window.removeEventListener("resize", this.updateDimensions);
+        window.removeEventListener("orientationchange", this.updateDimensions);
+        const deleteRefs = () => {
+            if (this.refs.video instanceof HTMLVideoElement
+                && this.refs.video.paused) {
+                    this.refs.video.pause();
             }
-            delete this.typedRefs.video;
         }
+        deleteRefs();
     }
 
     updateDimensions() {
@@ -164,7 +161,7 @@ class VideoCanvas extends React.Component<{}, {}> {
             width: this.state.width,
             height: this.state.height,
             //filter: 'grayscale(1)'
-//            opacity: 0.6,
+            opacity: 0.6,
 
 
             //width: 800,
@@ -174,12 +171,10 @@ class VideoCanvas extends React.Component<{}, {}> {
         //const videoSrc = "http://upload.wikimedia.org/wikipedia/commons/7/79/Big_Buck_Bunny_small.ogv";
         const videoSrc = 'file:///home/sebastien/Videos/paola-bw.mp4';
 
-        this.typedRefs = {} as object;
-
         return(
             <div>
                 <div style={canvasContainerStyle}>
-                    <canvas ref={(canvas: HTMLCanvasElement) => { this.typedRefs.canvas = canvas} }
+                    <canvas ref="canvas"
                             style={canvasStyle}>
                         Your browser does not support canvas.
                     </canvas>
@@ -187,13 +182,13 @@ class VideoCanvas extends React.Component<{}, {}> {
                 <div style={{fontFamily: 'Roboto', fontSize: '5em', color: 'white', fontWeight: 'bold', marginTop: 200, marginLeft: 300}}>
                     Title
                 </div>
-                <video ref={(video: HTMLVideoElement) => { this.typedRefs.video = video} }
+                <video ref="video"
                        src={videoSrc}
                        controls={true}
                        width="400"
                 >
                 </video>
-                <img ref={(image: HTMLImageElement) => { this.typedRefs.image = image} }
+                <img ref="image"
                      src={img} style={{width: '100%', height: 'auto', ...hiddenStyle}} />
             </div>
         )
