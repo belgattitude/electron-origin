@@ -4,15 +4,23 @@ import React, {CSSProperties} from 'react';
  * @link https://blog.cloudboost.io/using-html5-canvas-with-react-ff7d93f5dc76
  */
 
-class VideoCanvas extends React.Component<{}, {}> {
+interface IVideoState {
+    width: number;
+    height: number;
+}
 
-    state: {
-        width: number,
-        height: number,
-        title: string
-    }
+interface IVideoCanvasState {
+    video: IVideoState,
+    title: string
+}
 
-    margin: number = 5;
+class VideoCanvas extends React.Component<{}, IVideoCanvasState> {
+
+    state: IVideoCanvasState;
+
+    currentTime: number;
+
+    requestAnimationFrame?: number;
 
     videoRef = () => { return this.refs.video as HTMLVideoElement };
     canvasRef = () => { return this.refs.canvas as HTMLCanvasElement };
@@ -20,9 +28,12 @@ class VideoCanvas extends React.Component<{}, {}> {
 
     constructor(props: {}) {
         super(props);
+        this.currentTime = 0;
         this.state = {
-            width: window.innerWidth - this.margin,
-            height: window.innerHeight - this.margin,
+            video: {
+                width: window.innerWidth,
+                height: window.innerHeight,
+            },
             title: 'Hello world'
         }
         this.updateDimensions = this.updateDimensions.bind(this);
@@ -47,71 +58,62 @@ class VideoCanvas extends React.Component<{}, {}> {
 
         this.initAnimation()
 
-
         const canvas = this.canvasRef();
-        const img = this.imageRef();
+        //const img = this.imageRef();
         const video = this.videoRef();
 
         const ctx = canvas.getContext("2d");
         if (ctx === null) return;
 
-        scaleCanvas(canvas, ctx, this.state.width, this.state.height);
+        scaleCanvas(canvas, ctx, this.state.video.width, this.state.video.height);
 
         video.addEventListener('onmetadataloaded', (ev: Event) =>  {
             (ev.target as HTMLVideoElement).currentTime = 40;
         });
 
+        /*
         img.onload = () => {
             ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
-            /*
-            ctx.drawImage(img, 0, 0, img.width, img.height,
-                0, 0, canvas.width, canvas.height);
-                */
             ctx.font = "40px Roboto"
             ctx.fillText(this.state.title, 210, 75)
         }
-/*
-        const draw = (): void => {
-
-            if (video.paused || video.ended) {
-                return;
-            }
-
-            const ratio = window.devicePixelRatio || 1;
-            //ctx.drawImage(video, 0, 0, this.state.width, this.state.height);
-            ctx.drawImage(video, 0, 0, video.videoWidth, video.videoHeight,
-                0, 0, canvas.width / ratio, canvas.height / ratio);
-
-            requestAnimationFrame(draw);
-        };
-*/
-
+        */
 
         const drawScaled = (): void => {
 
-            video.playbackRate = 0.3;
-
             if (video.paused || video.ended) {
                 return;
             }
 
-            const ratio = video.videoWidth / video.videoHeight;
 
-            //console.log('RATIO', ratio);
+            const currentTime = video.currentTime;
 
-            const hdpiRatio = window.devicePixelRatio || 1;
-            //ctx.drawImage(video, 0, 0, this.state.width, this.state.height);
-            ctx.drawImage(video, 0, 0, video.videoWidth, (video.videoHeight / ratio),
-                0, 200, canvas.width / hdpiRatio, (canvas.height / ratio) / hdpiRatio);
+            // Optimization
+            /*
+            const maxFps = 0.1 / 60;
+            if (this.currentTime == 0 ||
+                currentTime > this.currentTime + maxFps ) {
+*/
+                this.currentTime = currentTime;
+                const ratio = video.videoWidth / video.videoHeight;
+                const hdpiRatio = window.devicePixelRatio || 1;
+                ctx.drawImage(video, 0, 0, video.videoWidth, (video.videoHeight / ratio),
+                    0, 200, canvas.width / hdpiRatio, (canvas.height / ratio) / hdpiRatio);
+/*
+            } else {
+                // console.log('Frame', this.currentTime, currentTime, maxFps);
+            }
+*/
 
-            requestAnimationFrame(drawScaled);
+            // For more optimization : http://codetheory.in/controlling-the-frame-rate-with-requestanimationframe/
+            this.requestAnimationFrame = requestAnimationFrame(drawScaled);
         };
 
-
-
-//        video.addEventListener("play", drawScaled, false);
-
+        video.addEventListener("play", drawScaled, false);
+        video.muted = true;
+        video.playbackRate = 0.9;
         video.play();
+
 
         ctx.drawImage(video, 0, 0);
     }
@@ -126,14 +128,17 @@ class VideoCanvas extends React.Component<{}, {}> {
             }
         }
         deleteRefs();
+        if (this.requestAnimationFrame !== undefined) {
+            cancelAnimationFrame(this.requestAnimationFrame);
+        }
     }
 
     updateDimensions() {
-        this.setState(() => {
-            return {
-                width: window.innerWidth - this.margin,
-                height: window.innerHeight - this.margin
-            }
+        this.setState((state: IVideoCanvasState): IVideoCanvasState => {
+            return {...state, video: {
+                width: window.innerWidth,
+                height: window.innerHeight,
+            }}
         })
     }
 
@@ -148,21 +153,23 @@ class VideoCanvas extends React.Component<{}, {}> {
             position: "fixed",
             top: 0,
             left: 0,
+            bottom: 0,
+            right: 0,
             margin: 0,
             padding: 0,
             overflow: 'hidden',
-            width: this.state.width,
-            height: this.state.height,
+            width: this.state.video.width,
+            height: this.state.video.height,
+            backgroundColor: 'black',
             zIndex: -100
 
         };
 
         const canvasStyle: CSSProperties = {
-            width: this.state.width,
-            height: this.state.height,
-            //filter: 'grayscale(1)'
-            opacity: 0.6,
-
+            width: this.state.video.width,
+            height: this.state.video.height,
+            filter: 'grayscale(1)',
+            opacity: 0.3,
 
             //width: 800,
             //height: 250
@@ -179,11 +186,16 @@ class VideoCanvas extends React.Component<{}, {}> {
                         Your browser does not support canvas.
                     </canvas>
                 </div>
-                <div style={{fontFamily: 'Roboto', fontSize: '5em', color: 'white', fontWeight: 'bold', marginTop: 200, marginLeft: 300}}>
+                <div style={{fontFamily: 'Roboto', fontSize: '5em', color: 'white', marginTop: 200, marginLeft: 300}}>
                     Title
+                </div>
+                <div>
+                    {/* seek */}
+                    <input type="range" />
                 </div>
                 <video ref="video"
                        src={videoSrc}
+                       style={hiddenStyle}
                        controls={true}
                        width="400"
                 >
@@ -196,6 +208,19 @@ class VideoCanvas extends React.Component<{}, {}> {
 }
 export default VideoCanvas;
 
+
+export function throttle(callback: () => void, limit: number) {
+    var wait = false;
+    return () => {
+        if (!wait) {
+            callback();
+            wait = true;
+            setTimeout(() => {
+                wait = false;
+            }, limit);
+        }
+    }
+}
 
 export function scaleCanvas(canvas: HTMLCanvasElement, context: any, width: number, height: number) {
     // assume the device pixel ratio is 1 if the browser doesn't specify it

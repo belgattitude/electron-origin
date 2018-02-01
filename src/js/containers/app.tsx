@@ -8,6 +8,7 @@ import { VideoEditorConnected } from '@src/connected';
 import {Switch} from 'react-router';
 import { AppBarConnected } from '@src/connected/app-bar-connected';
 import VideoCanvas from '@src/containers/video-canvas';
+import GLTest from '@src/containers/gl-test';
 
 const NoMatch = () => (
     <h1 style={{color: 'red'}}>Page not found!</h1>
@@ -28,6 +29,7 @@ class App extends React.Component<object, object> {
                                 <Route exact={true} path="/" component={Home}/>
                                 <Route exact={true} path="/video-editor" component={VideoEditorConnected}/>
                                 <Route exact={true} path="/video-canvas" component={VideoCanvas}/>
+                                <Route exact={true} path="/gl-test" component={GLTest}/>
                                 <Route component={NoMatch}/>
                             </Switch>
                         </main>
