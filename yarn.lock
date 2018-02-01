@@ -7783,6 +7783,10 @@ react-event-listener@^0.5.1:
     prop-types "^15.6.0"
     warning "^3.0.0"
 
+react-gl-transition@^1.13.0:
+  version "1.13.0"
+  resolved "https://registry.yarnpkg.com/react-gl-transition/-/react-gl-transition-1.13.0.tgz#0a6900c880a180d91b46db1fefdf746d77e027c4"
+
 react-hot-loader@4.0.0-beta.15:
   version "4.0.0-beta.15"
   resolved "https://registry.yarnpkg.com/react-hot-loader/-/react-hot-loader-4.0.0-beta.15.tgz#d32d23bad2f2f1f7d084e5a28bebca127066c5bc"

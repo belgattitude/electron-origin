@@ -1,7 +1,7 @@
 import React from "react";
 import { Uniform, LinearCopy, Shaders, GLSL, Node } from "gl-react";
 import { Surface } from "gl-react-dom";
-
+// import GLTransition from "react-gl-transition";
 
 interface IVideoProps {
     onFrame: any,
@@ -98,14 +98,13 @@ void main () {
 });
 
 
-/*
+
 const SplitColor = (props: any) => {
     const children = props.children;
     return (
         <Node shader={shaders.SplitColor} uniforms={{ children }} />
     );
 }
-*/
 
 const Persistence = ({ children: t, persistence }: any) => (
     <Node
@@ -121,18 +120,29 @@ const Persistence = ({ children: t, persistence }: any) => (
 const GLTest = () => {
 
     const video1 = 'file:///home/sebastien/Videos/paola-bw.mp4';
-    //const video2 = 'file:///home/sebastien/Videos/';
+    const video2 = 'file:///home/sebastien/Videos/MVI_0291.m4v';
     const width = window.innerWidth;
     return (
+        <div>
         <Surface width={width} height={630} pixelRatio={1}>
-            {/*
             <SplitColor>
                 {(redraw: any) => (
                     <Video onFrame={redraw} autoPlay loop>
-                        <source type="video/mp4" src={video1} />
+                        <source type="video/mp4" src={video2} />
                     </Video>
                 )}
             </SplitColor>
+        </Surface>
+        <Surface width={width} height={630} pixelRatio={1}>
+            {/*
+            <GLTransition
+                onConnectSizeComponentRef={() => { return }}
+                transition={transition}
+                transitionParams={transitionParams}
+                from={from}
+                to={to}
+                progress={progress}
+            />
             */}
             <LinearCopy>
                 <Persistence persistence={0.8}>
@@ -144,6 +154,7 @@ const GLTest = () => {
                 </Persistence>
             </LinearCopy>
         </Surface>
+        </div>
     )
 };
 
