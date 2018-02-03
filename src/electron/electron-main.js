@@ -30,12 +30,15 @@ let mainWindow;
 function createMainWindow() {
 
     if (process.env.NODE_ENV === "development" || process.env.DEBUG_PROD === "true") {
+
         installExtension(REACT_DEVELOPER_TOOLS)
             .then((name) => console.log(`Added Extension:  ${name}`))
             .catch((err) => console.log("An error occurred: ", err));
+
         installExtension(REDUX_DEVTOOLS)
             .then((name) => console.log(`Added Extension:  ${name}`))
             .catch((err) => console.log("An error occurred: ", err));
+
     }
 
     // Load the previous state with fallback to defaults

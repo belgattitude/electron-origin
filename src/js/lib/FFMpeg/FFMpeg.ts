@@ -10,6 +10,23 @@ class FFMpeg {
         this.ffmpegPath = ffmpegPath;
     }
 
+    async makeStreamable(srcFile: string, destFile: string): Promise<ExecaReturns> {
+
+        const process = execa(
+            this.getFFMpegPath(),
+            [
+                '-i', srcFile,
+                '-c', 'copy',
+                '-movflags',
+                '+faststart',
+                destFile,
+            ],
+            {stripEof: false});
+
+        return process;
+
+    }
+
     async convert(srcFile: string, destFile: string, options: ConvertOptionsInterface): Promise<any> {
 
         const process = execa(
