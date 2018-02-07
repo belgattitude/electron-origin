@@ -93,16 +93,16 @@ class VideoEditor extends React.Component<Props, {}> {
         const otherFile = '/home/sebastien/Videos/Dance/Smoke/smoke_3_3.mp4';
         return (
             <div>
-                <Button raised={true} color="primary" onClick={() => { this.setFile(otherFile); }}>
+                <Button variant="raised" color="primary" onClick={() => { this.setFile(otherFile); }}>
                     1. Load video
                 </Button>
-                <Button raised={true} onClick={() => { this.loadVideoInfo(); }}>
+                <Button variant="raised" onClick={() => { this.loadVideoInfo(); }}>
                     2. Get video info
                 </Button>
-                <Button raised={true} onClick={() => { this.convertVideo(); }}>
+                <Button variant="raised" onClick={() => { this.convertVideo(); }}>
                     3. Convert
                 </Button>
-                <Button raised={true} onClick={() => { this.backToHomePage(); }}>
+                <Button variant="raised" onClick={() => { this.backToHomePage(); }}>
                     4. Back home
                 </Button>
                 <VideoPreviewConnected />

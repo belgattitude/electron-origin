@@ -60,11 +60,13 @@ export const AppBarComponent: React.SFC<AppMenuProps> = (props) => {
     });
 
     const LinkItem = (props: MenuLinkProps) => {
-        const raised: boolean = props.active == true;
         return (
-            <Button component={
-                btnProps => <NavLink {...btnProps} to={props.path} />
-            } color="inherit" raised={raised}>
+            <Button color="inherit"
+                    variant={props.active ? 'raised' : undefined}
+                    component={
+                        btnProps => <NavLink {...btnProps} to={props.path} />
+                    }
+            >
                 {props.label}
             </Button>
         )
@@ -77,7 +79,7 @@ export const AppBarComponent: React.SFC<AppMenuProps> = (props) => {
                     <IconButton className={classes.menuButton} color="inherit" aria-label="Menu">
                         <MenuIcon/>
                     </IconButton>
-                    <Typography type="title" color="inherit" className={classes.flex}>
+                    <Typography variant="title" color="inherit" className={classes.flex}>
                         {props.title}
                     </Typography>
                     {menuItems.map(({path, label, active}) => { return (
