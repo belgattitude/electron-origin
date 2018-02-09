@@ -11,7 +11,7 @@ import {
 
 import {Menu as MenuIcon} from 'material-ui-icons';
 import withStyles from 'material-ui/styles/withStyles';
-import {NavLink} from 'react-router-dom';
+import {Link} from 'react-router-dom';
 import {RouteComponentProps} from 'react-router';
 
 // import {TypographyProps} from 'material-ui/Typography';
@@ -64,7 +64,7 @@ export const AppBarComponent: React.SFC<AppMenuProps> = (props) => {
             <Button color="inherit"
                     variant={props.active ? 'raised' : undefined}
                     component={
-                        btnProps => <NavLink {...btnProps} to={props.path} />
+                        btnProps => <Link to={props.path} {...btnProps} />
                     }
             >
                 {props.label}
