@@ -4,6 +4,10 @@ import React, {CSSProperties} from 'react';
  * @link https://blog.cloudboost.io/using-html5-canvas-with-react-ff7d93f5dc76
  */
 
+
+interface IVideoProps {
+}
+
 interface IVideoState {
     width: number;
     height: number;
@@ -14,7 +18,7 @@ interface IVideoCanvasState {
     title: string
 }
 
-class VideoCanvas extends React.Component<{}, IVideoCanvasState> {
+export default class VideoCanvas extends React.Component<IVideoProps, {}> {
 
     state: IVideoCanvasState;
 
@@ -206,7 +210,7 @@ class VideoCanvas extends React.Component<{}, IVideoCanvasState> {
         )
     }
 }
-export default VideoCanvas;
+
 
 
 export function throttle(callback: () => void, limit: number) {

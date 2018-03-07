@@ -52,21 +52,19 @@ export const AppBarComponent: React.SFC<AppMenuProps> = (props) => {
         {path: '/video-canvas', label: 'Canvas'},
         {path: '/gl-test', label: 'GLTest'},
         {path: '/no-match', label: '404'},
-    ].map((props: MenuLinkProps) => {
-        return {...props, active: (currentPath == props.path)}
+    ].map((menuLinkProps: MenuLinkProps) => {
+        return {...menuLinkProps, active: (currentPath == menuLinkProps.path)};
     });
 
     const LinkItem = (props: MenuLinkProps) => {
         return (
             <Button color="inherit"
                     variant={props.active ? 'raised' : undefined}
-                    component={
-                        btnProps => <Link to={props.path} {...btnProps} />
-                    }
+                    component={(btnProps: any) => <Link to={props.path} {...btnProps} />}
             >
                 {props.label}
             </Button>
-        )
+        );
     };
 
     return (
